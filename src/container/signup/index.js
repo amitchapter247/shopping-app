@@ -4,6 +4,7 @@ import Validator, { ValidationTypes } from "js-object-validation";
 import { toast } from 'react-toastify';
 import "./index.css";
 import SignupComponent from "../../components/signup";
+const BASE_URL = "http://192.168.2.112:8080/";
 
 class Signup extends Component {
   constructor(props) {
@@ -16,6 +17,8 @@ class Signup extends Component {
       mobile_no: "",
       gender: "",
       file: "",
+      imageUpdated: false,
+      imagePreviewUrl: "",
       errors: {},
       isLoading: false,
     }
@@ -102,27 +105,23 @@ class Signup extends Component {
           errors,
           isLoading: false
         });
-        return;
+      return ;
       }
-      const data = { name, email, password, cpassword, mobile_no, gender, file };
-      let body = new FormData();
-      
+      const data = { name, email, password, cpassword, mobile_no,gender, file };
+      const body = new FormData();
       for (const i in data) {
         if (data.hasOwnProperty(i)) {
           const element = data[i];
-          console.log(i, data[i]);
           body.append(i, element)
         }
       }
-      console.log(body)
-      console.log(data)
-      // eslint-disable-next-line
-      const response = await axios.post('http://192.168.2.112:8080/addUser', body);
-      console.log(response)
-      this.setState({ username: "", email: "", password: "", cpassword: "", mobile_no: "", gender: "", category: "", idproof: "", file: "", isLoading: false });
+     const result1= await axios.post('http://192.168.2.112:8080/addUser', body);
+     if(result1){
+      this.setState({ name: "", email: "", password: "", cpassword: "", mobile_no: "",gender: "", file: "", isLoading: false });
+     toast.success("Successfully signup")
       this.props.history.push("/login")
-      toast.success("Data submitted success");
-
+      
+     }
     } catch (error) {
       console.log(error)
       this.setState({ isLoading: false });
@@ -144,32 +143,42 @@ class Signup extends Component {
     });
   };
 
-  onfileChange = (e) => {
-    this.setState({
-      file: e.target.files[0] ? e.target.files[0] : null,
-    })
-  }
-
-
-  // onChangefile = e => {
-  //   let reader = new FileReader();
-  //   let file = e.target.files[0];
+  // onfileChange = (e) => {
   //   this.setState({
   //     file: e.target.files[0] ? e.target.files[0] : null,
-  //     imageUpdated: true
-  //   });
-  //   reader.onloadend = () => {
-  //     this.setState({
-  //       file: file,
-  //       imagePreviewUrl: reader.result
-  //     });
-  //   };
+  //   })
+  // }
 
-  //   reader.readAsDataURL(file);
-  // };
+
+  onfileChange = e => {
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    this.setState({
+      file: e.target.files[0] ? e.target.files[0] : null,
+      imageUpdated: true
+    });
+    reader.onloadend = () => {
+      this.setState({
+        file: file,
+        imagePreviewUrl: reader.result
+      });
+    };
+
+    reader.readAsDataURL(file);
+  };
 
   render() {
 
+
+    let { imagePreviewUrl, file } = this.state;
+    let $imagePreview = (
+      <img src={BASE_URL + file} alt ={"No img selected"} width="150px" height="150px" />
+    );
+    if (imagePreviewUrl) {
+      $imagePreview = (
+        <img src={imagePreviewUrl}  alt ={"No img selected"} width="150px" height="150px" />
+      );
+    }
 
     return (
       <SignupComponent
@@ -183,8 +192,9 @@ class Signup extends Component {
         errors={this.state.errors}
         isLoading={this.state.isLoading}
         onInputChange={this.onInputChange}
-        onChangefile={this.onChangefile}
+        onfileChange={this.onfileChange}
         onRegister={this.onRegister}
+        $imagePreview={$imagePreview}
       />
     );
   }

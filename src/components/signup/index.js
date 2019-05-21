@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Card, Label, CardBody, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
+
 class SignupComponent extends Component {
   constructor(props) {
     super(props);
@@ -18,22 +19,14 @@ class SignupComponent extends Component {
       cpassword: cpasswordError,
       mobile_no: mobile_noError,
       gender: genderError,
-      file: fileError,
+       file: fileError,
     } = this.props.errors;
 
-    // let { imagePreviewUrl } = this.state;
-    // let $imagePreview = (
-    //   <img src={this.state.file} alt="No img selected" width="150px" height="150px" />
-    // );
-    // if (imagePreviewUrl) {
-    //   $imagePreview = (
-    //     <img src={imagePreviewUrl} alt="No img selected" width="150px" height="150px" />
-    //   );
-    // }
+    
     return (
-<div className = "body" >
+<div  >
       <div className="app flex-row align-items-center" >
-        <Container >
+        <Container className="container" >
           <Row className="justify-content-center">
             <Col md="9" lg="7" xl="6">
               <Card className="mx-4" style={{ marginTop: "50px" }}>
@@ -110,13 +103,14 @@ class SignupComponent extends Component {
                     </InputGroup>
 
                     <InputGroup className="mb-3">
+                    <Label for = "file"> Upload your picture </Label>
                       <Input type="file" autoComplete="file" onChange = {this.props.onfileChange}/>
                       {fileError ? <p style={{ color: "red" }}>{fileError}</p> : null}
                     </InputGroup>
 
-                    {/* <InputGroup align="center">
-                      <div className="imgPreview">{$imagePreview}</div>
-                    </InputGroup> */}
+                    <InputGroup align="center">
+                      <div className="imgPreview">{this.props.$imagePreview}</div>
+                    </InputGroup>
 
 
                     <Link to="/login"><p>Already have an account!! Click here</p></Link>

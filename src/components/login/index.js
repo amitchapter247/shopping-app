@@ -27,8 +27,8 @@ class LoginComponent extends Component {
     const {  isLoading } = this.props;
     const { email: emailError, password: passwordError } = this.props.errors;
     return (
-      <div className="app flex-row align-items-center">
-        <Container>
+      <div className="app flex-row align-items-center" >
+        <Container >
           <Row className="justify-content-center">
             <Col md="6">
               <CardGroup>
