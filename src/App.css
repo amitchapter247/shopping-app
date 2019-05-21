@@ -35,3 +35,9 @@
 .body{
   background-color: #1c4085;
 }
+
+.container{
+  align-items:center;
+  widows: 100%;
+  justify-content:center;
+}
