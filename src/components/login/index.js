@@ -77,7 +77,7 @@ class LoginComponent extends Component {
                       <Row>
                         <Col xs="6">
                           <Button
-                            color="primary"
+                            color="success"
                             className="px-4"
                           
                           >
