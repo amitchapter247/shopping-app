@@ -1,15 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+//import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-
 import * as serviceWorker from './serviceWorker';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faStroopwafel } from '@fortawesome/free-solid-svg-icons'
-library.add(faStroopwafel)
+//import { library } from '@fortawesome/fontawesome-svg-core'
+//import { faStroopwafel } from '@fortawesome/free-solid-svg-icons'
+//library.add(faStroopwafel)
 
 ReactDOM.render(<> <App /> <ToastContainer /> </>, document.getElementById("root"));
 
