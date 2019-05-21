@@ -95,12 +95,13 @@ class Login extends Component {
     });
   };
   render() {
+    const { email, password, isLoading, errors } = this.state;
     return (
       <LoginComponent
-        email={this.state.email}
-        password={this.state.password}
-        isLoading={this.state.isLoading}
-        errors={this.state.errors}
+        email={email}
+        password={password}
+        isLoading={isLoading}
+        errors={errors}
         onLogin={this.onLogin}
         onInputChange={this.onInputChange}
       />

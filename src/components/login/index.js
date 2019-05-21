@@ -33,9 +33,7 @@ class LoginComponent extends Component {
             <Col md="6">
               <CardGroup>
                 <Card
-                  className="p-4"
-                  style={{ marginTop: "50px", marginBottom: "50px" }}
-                >
+                  className="p-4">
                   <CardBody>
                     <Form onSubmit={this.props.onLogin} noValidate>
                       <h1>Login</h1>
@@ -87,13 +85,13 @@ class LoginComponent extends Component {
                         </Col>
                         <Col xs="6" className="text-right">
                           <Link to={"/forgot-password"}>
-                            Forgot Password
+                            Forgot Password?
                               </Link>
                         </Col>
                         <br />
                         <Col xs="6" className="text-left">
                           <Link to={"/signup"}>
-                            Not Registered click Here...
+                           Create New Account
                           </Link>
                         </Col>
                       </Row>
