@@ -172,11 +172,11 @@ class Signup extends Component {
 
     let { imagePreviewUrl, file } = this.state;
     let $imagePreview = (
-      <img src={BASE_URL + file} alt ={"No img selected"} width="150px" height="150px" />
+      <img src={BASE_URL + file} alt ={""} width="150px" height="150px" />
     );
     if (imagePreviewUrl) {
       $imagePreview = (
-        <img src={imagePreviewUrl}  alt ={"No img selected"} width="150px" height="150px" />
+        <img src={imagePreviewUrl}  alt ={""} width="150px" height="150px" />
       );
     }
 

@@ -19,11 +19,10 @@ const loading = {
   fontSize: "24px"
 };
 class ResetComponent extends Component {
-
   constructor(props) {
-
     super(props);
-
+    this.State = {
+    };
   }
 
   render() {

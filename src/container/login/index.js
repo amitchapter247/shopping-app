@@ -16,15 +16,11 @@ class Login extends Component {
     };
   }
   componentDidMount = async () => {
-    //this.autoLogin();
+    const token = localStorage.getItem("token");
+    if (token) {
+      this.props.history.push("/profile");
+    }
   };
-
-  // autoLogin = () => {
-  //   const token = localStorage.getItem("token");
-  //   if (token) {
-  //     this.props.history.push("/product-list");
-  //   }
-  // };
 
   onLogin = async e => {
     e.preventDefault();
@@ -70,8 +66,8 @@ class Login extends Component {
       localStorage.setItem("token", response.data.token);
       console.log(this.props);
       toast.success("Login Succesfully");
-      localStorage.setItem("cid", response.data.result._id);
-      this.props.history.push("/product-list");
+      localStorage.setItem("Cid", response.data.result._id);
+      this.props.history.push("/profile");
     } catch (error) {
       this.setState({ isLoading: false });
       toast.error(

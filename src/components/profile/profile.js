@@ -14,8 +14,11 @@ import {
   InputGroupText,
   Row,
 } from "reactstrap";
+import { withRouter } from "react-router-dom";
+const BASE_URL = "http://192.168.2.112:8080/";
 
-class SignupComponent extends Component {
+
+class ProfileComponent extends Component {
   constructor(props) {
     super(props);
     this.State = {
@@ -27,11 +30,9 @@ class SignupComponent extends Component {
     const {
       name: nameError,
       email: emailError,
-      password: passwordError,
-      cpassword: cpasswordError,
       mobile_no: mobile_noError,
       gender: genderError,
-      file: fileError,
+
     } = this.props.errors;
 
     return (
@@ -42,10 +43,10 @@ class SignupComponent extends Component {
               <Col md="9" lg="7" xl="6">
                 <Card className="mx-4" style={{ marginTop: "50px" }}>
                   <CardBody className="p-4">
-                    <Form onSubmit={this.props.onRegister} noValidate>
-                      <h1>Register</h1>
+                    <Form onSubmit={this.props.onSubmit} noValidate>
+                      <h1>Profile</h1>
 
-                      <p className="text-muted">Create your account</p>
+                      <p className="text-muted"></p>
 
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
@@ -58,6 +59,7 @@ class SignupComponent extends Component {
                           name="name"
                           placeholder="Name"
                           autoComplete="name"
+                          value={this.props.name}
                           onChange={this.props.onInputChange}
                         />
                         {nameError ? (
@@ -74,6 +76,7 @@ class SignupComponent extends Component {
                           name="email"
                           placeholder="Email"
                           autoComplete="email"
+                          value={this.props.email}
                           onChange={this.props.onInputChange}
                         />
                         {emailError ? (
@@ -81,41 +84,7 @@ class SignupComponent extends Component {
                         ) : null}
                       </InputGroup>
 
-                      <InputGroup className="mb-3">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="fa fa-key" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          type="password"
-                          name="password"
-                          placeholder="Password"
-                          autoComplete="password"
-                          onChange={this.props.onInputChange}
-                        />
-                        {passwordError ? (
-                          <p style={{ color: "red" }}>{passwordError}</p>
-                        ) : null}
-                      </InputGroup>
-
-                      <InputGroup className="mb-4">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="fas fa-lock" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          type="password"
-                          name="cpassword"
-                          placeholder="Re-type password"
-                          autoComplete="password"
-                          onChange={this.props.onInputChange}
-                        />
-                        {cpasswordError ? (
-                          <p style={{ color: "red" }}>{cpasswordError}</p>
-                        ) : null}
-                      </InputGroup>
+                     
 
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
@@ -128,6 +97,7 @@ class SignupComponent extends Component {
                           name="mobile_no"
                           placeholder="Mobile no."
                           autoComplete="mobile_no"
+                          value={this.props.mobile_no}
                           onChange={this.props.onInputChange}
                         />
                         {mobile_noError ? (
@@ -143,19 +113,18 @@ class SignupComponent extends Component {
                         </InputGroupAddon>
                         <Label for="gender" />
                         <Input
-                          type="select"
+                        readOnly
+                          type="text"
                           name="gender"
-                          id="gender"
+                          
+                          value={this.props.gender}
                           onChange={this.props.onInputChange}
                         >
-                          <option value={""}>-Select gender-</option>
-                          <option value={"male"}>Male</option>
-                          <option value={"female"}>Female</option>
-                          <option value={"other"}>Other</option>
+                          
                         </Input>
-                        {genderError ? (
+                        {/* {genderError ? (
                           <p style={{ color: "red" }}>{genderError}</p>
-                        ) : null}
+                        ) : null} */}
                       </InputGroup>
 
                       <InputGroup className="mb-3">
@@ -163,22 +132,15 @@ class SignupComponent extends Component {
                         <Input
                           type="file"
                           autoComplete="file"
+                          // value={this.props.file}
                           onChange={this.props.onfileChange}
                         />
-                        {fileError ? (
+                        {/* {fileError ? (
                           <p style={{ color: "red" }}>{fileError}</p>
-                        ) : null}
+                        ) : null} */}
                       </InputGroup>
 
-                      <InputGroup align="center">
-                        <div className="imgPreview">
-                          {this.props.$imagePreview}
-                        </div>
-                      </InputGroup>
-
-                      <Link to="/login">
-                        <p>Already have an account!! Click here</p>
-                      </Link>
+                
 
                       <Button color="success" block>
                         {isLoading ? "please wait.." : "Create Account"}
@@ -195,4 +157,4 @@ class SignupComponent extends Component {
   }
 }
 
-export default SignupComponent;
+export default withRouter(ProfileComponent);

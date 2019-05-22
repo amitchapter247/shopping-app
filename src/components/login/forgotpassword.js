@@ -18,6 +18,8 @@ import {
 class ForgotComponent extends Component {
   constructor(props) {
     super(props);
+    this.State = {
+    };
 
   }
 

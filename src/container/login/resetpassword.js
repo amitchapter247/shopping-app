@@ -8,7 +8,6 @@ import Validator, { ValidationTypes } from "js-object-validation";
 class ResetPassword extends Component {
   constructor() {
     super();
-
     this.state = {
       email: "",
       value: "",
