@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Login from "./container/login";
 import ForgotPassword from "./container/login/forgotpassword";
+import ResetPassword from "./container/login/resetpassword";
 import Register from "./container/signup";
 import Footer from "./components/home/footer";
 import Contactus from "./components/home/contactus";
@@ -39,6 +40,7 @@ class App extends Component {
             <DefaultLayout exact path="/" component={CardContainer} />
             <Route path="/login" component={Login} />
             <Route path="/forgot-password" component={ForgotPassword} />
+            <Route path="/reset/:token1" component={ResetPassword} />
             <Route path="/signup" component={Register} />
             <Route path="/footer" component={Footer} />
             <Route path="/contactus" component={Contactus} />
@@ -55,4 +57,5 @@ class App extends Component {
     );
   }
 }
+
 export default App;

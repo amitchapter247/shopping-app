@@ -2,11 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import {
   Button,
-  Card,
-  CardBody,
-  CardGroup,
   Col,
-  Container,
+
   Form,
   Input,
   InputGroup,
@@ -16,93 +13,90 @@ import {
 } from "reactstrap";
 
 class LoginComponent extends Component {
-  
   constructor(props) {
     super(props);
     this.State = {
-
-    }
+    };
   }
 
   render() {
-    const {  isLoading } = this.props;
+    const { isLoading } = this.props;
     const { email: emailError, password: passwordError } = this.props.errors;
     return (
-      
-      <div className="app flex-row align-items-center">
-        <Container className = "animate">
-          <Row className="justify-content-center">
-            <Col md="6">
-              <CardGroup>
-                <Card
-                  className="p-4"
-                  style={{ marginTop: "50px", marginBottom: "50px" }}
-                >
-                  <CardBody>
-                    <Form onSubmit={this.props.onLogin} noValidate>
-                      <h1>Login</h1>
-                      <p className="text-muted">Sign In to your account</p>
-                      <InputGroup className="mb-3">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="fa fa-envelope" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          type="email"
-                          name="email"
-                          placeholder="email"
-                          autoComplete="username"
-                          onChange={this.props.onInputChange}
-                        />
-                        {emailError ? (
-                          <p style={{ color: "red" }}>{emailError}</p>
-                        ) : null}
-                      </InputGroup>
-                      <InputGroup className="mb-4">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="fa fa-key" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          type="password"
-                          name="password"
-                          placeholder="Password"
-                          autoComplete="current-password"
-                          onChange={this.props.onInputChange}
-                        />
-                        {passwordError ? (
-                          <p style={{ color: "red" }}>{passwordError}</p>
-                        ) : null}
-                      </InputGroup>
-                      <Row>
-                        <Col xs="6">
-                          <Button
-                            color="success"
-                            className="px-4"
-                          
-                          >
-                            {isLoading ? "Please wait.." : " Log In"}
-                          {/* Login */}
-                          </Button>
-                        </Col>
-                        <Col xs="6" className="text-right">
-                          <Link to={"/forgot-password"}>
-                            Forgot Password
-                              </Link>
-                        </Col>
-                        <br />
-                        <Col xs="6" className="text-left">
-                          <Link to={"/signup"}>
-                            Not Registered click Here...
-                          </Link>
-                        </Col>
-                      </Row>
-                    </Form>
-                  </CardBody>
-                </Card>
-                {/* <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
+      <div>
+      <div className="login_loginContainer__2JMrT">
+            <Form
+              onSubmit={this.props.onLogin}
+              noValidate
+              className="login_formSignin__27WMl"
+            >
+              <h1>Login</h1>
+              <p className="text-muted">Sign In to your account</p>
+              <InputGroup className="mb-3">
+                           <InputGroupAddon addonType="prepend">
+                  <InputGroupText>
+                    <i className="fa fa-envelope" />
+                  </InputGroupText>
+              </InputGroupAddon>
+             
+                 <span>
+                <Input
+                  type="email"
+                  name="email"
+                  placeholder="email"
+                  autoComplete="username"
+                  onChange={this.props.onInputChange}
+              /></span>
+             
+                {emailError ? (
+                  <p style={{ color: "red" }}>{emailError}</p>
+                ) : null}
+            
+            </InputGroup>
+
+              
+                   <InputGroup className="mb-4">
+               
+                <InputGroupAddon addonType="prepend">
+                  <InputGroupText>
+                    <i className="fa fa-key" />
+                  </InputGroupText>
+                </InputGroupAddon>
+                 
+                 <span>
+                <Input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  autoComplete="current-password"
+                  onChange={this.props.onInputChange}
+                  /></span>
+              
+
+              
+                {passwordError ? (
+                  <p style={{ color: "red" }}>{passwordError}</p>
+                ) : null}
+               
+
+              </InputGroup>
+             
+            
+              <Button color="success" block>
+                {isLoading ? "Please wait.." : " Log In"}
+              </Button>
+              <Row>
+                <Col sm="6" className="text-right">
+                  <Link to={"/signup"}>Create new account</Link>
+                </Col>
+                <Col sm="6" className="text-right">
+                  {" "}
+                  <Link to={"/forgot-password"}>Forgot Password ?</Link>
+                </Col>
+              </Row>
+            </Form>
+
+            {/* <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
                   <CardBody className="text-center">
                     <div>
                       <h2>Sign up</h2>
@@ -114,10 +108,7 @@ class LoginComponent extends Component {
                     </div>
                   </CardBody>
                 </Card> */}
-              </CardGroup>
-            </Col>
-          </Row>
-        </Container>
+      </div>
       </div>
     );
   }

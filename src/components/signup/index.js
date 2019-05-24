@@ -8,13 +8,13 @@ class SignupComponent extends Component {
   constructor(props) {
     super(props);
     this.State = {
-
-    }
+    };
   }
 
   render() {
     const { isLoading } = this.props;
-    const { name: nameError,
+    const {
+      name: nameError,
       email: emailError,
       password: passwordError,
       cpassword: cpasswordError,
@@ -138,6 +138,5 @@ class SignupComponent extends Component {
     );
   }
 }
-
 
 export default SignupComponent;

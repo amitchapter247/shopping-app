@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { Component } from "react";
 import axios from "axios";
 import Slider from "react-slick";
@@ -63,10 +64,19 @@ const popularvisit = {
 };
 
 class CardContainer extends Component {
+=======
+import Axios from "axios";
+import React, { Component } from "react";
+
+import MultipleComponent from "../../components/home/card";
+
+class MultipleItems extends Component {
+>>>>>>> ad64d195fd3ea5778a48713aeae963b155477fd4
   constructor(props) {
     super(props);
     this.state = {
       product: [],
+<<<<<<< HEAD
       products: [],
       data: []
     };
@@ -90,10 +100,23 @@ class CardContainer extends Component {
     const response1 = await axios.get("http://192.168.2.107:8080/visitProduct");
     const result2 = response1.data.result;
     this.setState({ data: result2 });
+=======
+      isLoading: false,
+      errors: {},
+    };
+  }
+  componentDidMount = async () => {
+    // const data= {name , price, thumbnail};
+   const response=  await Axios.get('http://192.168.2.112:8080/getItem/:id')
+    const result = response.data.result;
+    this.setState({ product: result });
+    console.log(result);
+>>>>>>> ad64d195fd3ea5778a48713aeae963b155477fd4
     if (!result) {
       console.log("error");
     }
   };
+<<<<<<< HEAD
   render() {
     const { product } = this.state;
     const { products } = this.state;
@@ -139,3 +162,23 @@ class CardContainer extends Component {
   }
 }
 export default CardContainer;
+=======
+
+  // autoLogin = () => {
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     this.props.history.push("/product-list");
+  //   }
+  // };
+  render() {
+    const { product } = this.state;
+    return (
+      <MultipleComponent
+      products={products}
+      />
+    );
+  }
+}
+
+export default MultipleItems;
+>>>>>>> ad64d195fd3ea5778a48713aeae963b155477fd4
