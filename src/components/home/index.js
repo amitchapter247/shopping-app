@@ -1,24 +1,23 @@
-import React, { Component } from 'react';
-import {Header} from './components/Header';
-import {Main} from './components/Main';
-import {Footer} from './components/Footer';
+import React, { Component } from "react";
+import { Card, CardHeader, CardFooter, CardBody } from "reactstrap";
+import CardContainer from "../../container/home/card";
+import FooterComponent from "../../components/home/footer";
+// import NavbarHeadForCard from "../../navbar1";
 
 class Home extends Component {
-    render() {
-        return (
-            <div className="App Site">
-                <div className="Site-content">
-                    <div className="App-header">
-                        <Header />
-                    </div>
-                    <div className="main">
-                        <Main />
-                    </div>
-                </div>
-                <Footer />
-            </div>
-        );
-    }
+  render() {
+    return (
+      <Card className={"card-home"}>
+        <CardHeader>header</CardHeader>
+        <CardBody>
+          <CardContainer />
+        </CardBody>
+        <CardFooter>
+          <FooterComponent />
+        </CardFooter>
+      </Card>
+    );
+  }
 }
 
 export default Home;

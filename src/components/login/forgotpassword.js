@@ -18,7 +18,8 @@ import {
 class ForgotComponent extends Component {
   constructor(props) {
     super(props);
-
+    this.State = {
+    }
   }
 
   render() {
@@ -26,7 +27,7 @@ class ForgotComponent extends Component {
     //const { email: emailError } = this.props.errors;
     return (
       <div className="app flex-row align-items-center">
-        <Container>
+        <Container className = "animate">
           <Row className="justify-content-center">
             <Col md="6">
               <CardGroup>

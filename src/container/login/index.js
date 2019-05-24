@@ -1,6 +1,6 @@
+import React, { Component } from "react";
 import Axios from "axios";
 import Validator, { ValidationTypes } from "js-object-validation";
-import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
 import LoginComponent from "../../components/login";

@@ -17,18 +17,20 @@ import {
 
 class LoginComponent extends Component {
   
-   constructor(props) {
-    
+  constructor(props) {
     super(props);
-   
+    this.State = {
+
+    }
   }
 
   render() {
     const {  isLoading } = this.props;
     const { email: emailError, password: passwordError } = this.props.errors;
     return (
+      
       <div className="app flex-row align-items-center">
-        <Container>
+        <Container className = "animate">
           <Row className="justify-content-center">
             <Col md="6">
               <CardGroup>

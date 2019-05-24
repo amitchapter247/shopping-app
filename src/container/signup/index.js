@@ -66,9 +66,7 @@ class Signup extends Component {
         gender: {
           [ValidationTypes.REQUIRED]: true
         },
-        // file: {
-        //   [ValidationTypes.REQUIRED]: true
-        // }
+        
       };
       const messages = {
         username: {
@@ -95,9 +93,7 @@ class Signup extends Component {
         gender: {
           [ValidationTypes.REQUIRED]: "Please select gender"
         },
-        // file: {
-        //   [ValidationTypes.REQUIRED]: "Please insert image"
-        // }
+        
       };
       const { isValid, errors } = Validator(obj, validations, messages);
       if (!isValid) {
@@ -118,7 +114,7 @@ class Signup extends Component {
      const result1= await axios.post('http://192.168.2.112:8080/addUser', body);
      if(result1){
       this.setState({ name: "", email: "", password: "", cpassword: "", mobile_no: "",gender: "", file: "", isLoading: false });
-     toast.success("Successfully signup")
+     toast.success("You are Successfully signup")
       this.props.history.push("/login")
       
      }
@@ -143,12 +139,7 @@ class Signup extends Component {
     });
   };
 
-  // onfileChange = (e) => {
-  //   this.setState({
-  //     file: e.target.files[0] ? e.target.files[0] : null,
-  //   })
-  // }
-
+ 
 
   onfileChange = e => {
     let reader = new FileReader();
@@ -172,11 +163,11 @@ class Signup extends Component {
 
     let { imagePreviewUrl, file } = this.state;
     let $imagePreview = (
-      <img src={BASE_URL + file} alt ={"No img selected"} width="150px" height="150px" />
+      <img src={BASE_URL + file} alt ={""} width="150px" height="150px" />
     );
     if (imagePreviewUrl) {
       $imagePreview = (
-        <img src={imagePreviewUrl}  alt ={"No img selected"} width="150px" height="150px" />
+        <img src={imagePreviewUrl}  alt ={""} width="150px" height="150px" />
       );
     }
 
