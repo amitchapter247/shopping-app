@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { Component } from "react";
 import axios from "axios";
 import Slider from "react-slick";
@@ -64,59 +63,36 @@ const popularvisit = {
 };
 
 class CardContainer extends Component {
-=======
-import Axios from "axios";
-import React, { Component } from "react";
-
-import MultipleComponent from "../../components/home/card";
-
-class MultipleItems extends Component {
->>>>>>> ad64d195fd3ea5778a48713aeae963b155477fd4
   constructor(props) {
     super(props);
     this.state = {
       product: [],
-<<<<<<< HEAD
       products: [],
       data: []
     };
   }
   componentDidMount = async () => {
-    const response = await axios.get("http://192.168.2.107:8080/getProduct");
-    const result = response.data.result;
-    console.log("result =====> ", result);
-    this.setState({ product: result });
-    if (!result) {
-      console.log("error");
-    }
-    const res = await axios.get("http://192.168.2.107:8080/getproduct");
-    const result1 = res.data.result;
-    console.log("result =====> ", result1);
-    this.setState({ products: result1 });
-    if (!result) {
+    const res = await axios.post("http://192.168.2.118:8080/getProduct");
+    const dataresult = res.data.result;
+    this.setState({ product: dataresult });
+    if (!dataresult) {
       console.log("error");
     }
 
-    const response1 = await axios.get("http://192.168.2.107:8080/visitProduct");
+    const response = await axios.get("http://192.168.2.118:8080/newProduct");
+    const result1 = response.data.result;
+    this.setState({ products: result1 });
+    if (!result1) {
+      console.log("error");
+    }
+
+    const response1 = await axios.get("http://192.168.2.118:8080/visitProduct");
     const result2 = response1.data.result;
     this.setState({ data: result2 });
-=======
-      isLoading: false,
-      errors: {},
-    };
-  }
-  componentDidMount = async () => {
-    // const data= {name , price, thumbnail};
-   const response=  await Axios.get('http://192.168.2.112:8080/getItem/:id')
-    const result = response.data.result;
-    this.setState({ product: result });
-    console.log(result);
->>>>>>> ad64d195fd3ea5778a48713aeae963b155477fd4
-    if (!result) {
+    if (!result2) {
       console.log("error");
     }
   };
-<<<<<<< HEAD
   render() {
     const { product } = this.state;
     const { products } = this.state;
@@ -124,7 +100,7 @@ class MultipleItems extends Component {
     return (
       <>
         <div>
-          <h4 className={"h4"}> Featured products</h4>
+          <h4 className={"h4"}> Recently visited products</h4>
           <Slider {...settings}>
             {product && product.length
               ? product.map(product => {
@@ -134,7 +110,7 @@ class MultipleItems extends Component {
           </Slider>
 
           <div className={"multi1"}>
-            <h4 className={"h4"}> Recently visited products</h4>
+            <h4 className={"h4"}>Featured products</h4>
             <Slider {...settings1}>
               {products && products.length
                 ? products.map(products => {
@@ -162,23 +138,3 @@ class MultipleItems extends Component {
   }
 }
 export default CardContainer;
-=======
-
-  // autoLogin = () => {
-  //   const token = localStorage.getItem("token");
-  //   if (token) {
-  //     this.props.history.push("/product-list");
-  //   }
-  // };
-  render() {
-    const { product } = this.state;
-    return (
-      <MultipleComponent
-      products={products}
-      />
-    );
-  }
-}
-
-export default MultipleItems;
->>>>>>> ad64d195fd3ea5778a48713aeae963b155477fd4

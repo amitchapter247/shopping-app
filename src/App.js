@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import "./App.css";
 import Login from "./container/login";
 import ForgotPassword from "./container/login/forgotpassword";
 import ResetPassword from "./container/login/resetpassword";
@@ -12,9 +11,13 @@ import Blog from "./components/home/blog";
 import About from "./components/home/about";
 import Privacy from "./components/home/privacy";
 import CardContainer from "./container/home/card";
-import Sortbyprice from "./container/sort";
 import Layout from "./container/Layout";
 import Productdetails from "./container/productdetails";
+import ProductList from "./container/productlist";
+import SimilarSlider from "./container/productdetails/similarproductsslider";
+import Checkout from "./container/checkout";
+import "./App.css";
+import Stripe from "./container/checkout/stripepayment";
 
 class App extends Component {
   render() {
@@ -49,8 +52,11 @@ class App extends Component {
             <Route path="/about" component={About} />
             <Route path="/privacy" component={Privacy} />
             <Route path="/card" component={CardContainer} />
-            <Route path="/demo" component={Sortbyprice} />
-            <Route path="/product-details" component={Productdetails} />
+            <Route path="/product-details/:id" component={Productdetails} />
+            <Route path="/product-list" component={ProductList} />
+            <Route path="/similarproducts" component={SimilarSlider} />
+            <Route path="/checkout" component={Checkout} />
+            <Route path="/stripe/:_id" component={Stripe} />
           </Switch>
         </>
       </Router>

@@ -41,7 +41,7 @@ class ForgotPassword extends Component {
         isLoading: true,
       });
       axios
-        .post("http://192.168.2.112:8080/forgotPassword", {
+        .post("http://192.168.2.118:8080/forgotPassword", {
           email,
         })
         .then(response => {

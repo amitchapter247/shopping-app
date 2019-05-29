@@ -24,7 +24,7 @@ class ResetPassword extends Component {
       this.props.history.push("/product-list");
     }
     await axios
-      .get("http://192.168.2.112:8080/reset/" + this.props.match.params.token1)
+      .get("http://192.168.2.118:8080/reset/" + this.props.match.params.token1)
       .then(response => {
         // console.log("response.data.message");
         // console.log(response.data.message);
@@ -99,7 +99,7 @@ class ResetPassword extends Component {
         });
         return;
       }
-      axios.put("http://192.168.2.112:8080/updatePasswordViaEmail", {
+      axios.put("http://192.168.2.118:8080/updatePasswordViaEmail", {
         email: this.state.email,
         resetPasswordToken: this.props.match.params.token,
         password: this.state.password

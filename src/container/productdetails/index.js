@@ -1,38 +1,233 @@
 import React, { Component } from "react";
 import axios from "axios";
 import ProductdetailsComponent from "../../components/productdetails";
+import {
+  CardHeader,
+  CardFooter,
+  Row,
+  Col,
+  Collapse,
+  Navbar,
+  Nav,
+  NavbarBrand,
+  NavbarToggler,
+  Button,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText
+} from "reactstrap";
+import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import SimilarSlider from "../../container/productdetails/similarproductsslider";
 
 class Productdetails extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      product: [],
-      data: ""
+      product: {},
+      data: "",
+      quantity: 1
     };
   }
+
   componentDidMount = async () => {
-    const { data } = this.state;
-    const response = await axios.get("http://192.168.2.107:8080/getProduct/");
-    console.log("resssss", response);
-    const data1 = response.data.result[1]._id;
+    await this.fetchProduct();
+  };
 
-    console.log("dataaa", data1);
-    // this.setState({ data: data1 });
-    const obj = { data1 };
+  fetchProduct = async () => {
+    try {
+      const res = await axios.post(
+        "http://192.168.2.118:8080/getItem/" + this.props.match.params.id
+      );
+      console.log(res);
+      this.setState({ product: res.data.result });
+    } catch (error) {
+      console.log("product fetch err: ", error);
+    }
+  };
 
-    const res = await axios.post("http://192.168.2.107:8080/getItem", obj);
-    const result = res.data.result;
-    this.setState({ product: result });
-    if (!result) {
-      console.log("error");
+  add = e => {
+    e.preventDefault();
+    if (this.state.quantity < this.state.product["quantity"]) {
+      this.setState({
+        quantity: this.state.quantity + 1
+      });
+    } else {
+      toast.warning("Stock limit reach");
+    }
+    console.log("Stock limit reach");
+  };
+
+  subtract = e => {
+    e.preventDefault();
+    this.setState({
+      quantity: this.state.quantity - 1
+    });
+    console.log("No product added");
+  };
+
+  handleToken = async (token, amount) => {
+    const resp = await axios.post("http://192.168.2.140:8080/payment", {
+      token,
+      amount
+    });
+    console.log("hfufhgfghghghch********",amount);
+    console.log(resp);
+    console.log("resp");
+
+    const { status } = resp.data;
+    console.log("Response:", resp.data);
+    if (status === "success") {
+      toast("Payment has been successfully done! ", { type: "success" });
+      this.props.history.push("/success");
+    } else {
+      toast("Something went wrong", { type: "error" });
+      this.props.history.push("/failure");
     }
   };
 
   render() {
-    const { product } = this.state;
+    const { product, quantity } = this.state;
+
     return (
       <>
-        <ProductdetailsComponent obj={product} key={product._id} />;
+        <CardHeader className="head">
+          {" "}
+          <div className="navbar">
+            <Navbar light expand="md" link to="/">
+              <NavLink to={"/product-list"} className="a">
+                {" "}
+                <i className=" fa fa-arrow-circle-left" /> Back
+              </NavLink>
+              &nbsp; &nbsp;
+              <div className="a">
+                <NavbarBrand link to="/">
+                  Shopping Centre
+                </NavbarBrand>{" "}
+              </div>{" "}
+              <NavbarToggler onClick={this.toggle} />
+              <Nav className="ml-auto" navbar>
+                <Collapse isOpen={this.state.isOpen} navbar>
+                  <Link to={"/login"} className="a">
+                    {" "}
+                    <b>Login </b>{" "}
+                  </Link>
+                  &nbsp; &nbsp;
+                  <NavLink to={"/signup"} className="a">
+                    {" "}
+                    <b> Signup</b>{" "}
+                  </NavLink>
+                </Collapse>
+              </Nav>
+            </Navbar>
+          </div>
+        </CardHeader>
+
+        <ProductdetailsComponent
+          obj={product}
+          key={product._id}
+          quantity={quantity}
+          incQuantity={this.add}
+          decQuantity={this.subtract}
+          handleToken={this.handleToken}
+        />
+
+        <SimilarSlider />
+
+        <CardFooter
+          body
+          inverse
+          style={{ backgroundColor: "#333", borderColor: "#333" }}
+        >
+          <Row>
+            <Col>
+              <p className="a">Static page</p>
+              <li className="li">
+                <Link className="a" to={"/"}>
+                  Home
+                </Link>
+              </li>
+              <li className="li">
+                <Link className="a" to={"/login"}>
+                  Login
+                </Link>
+              </li>
+              <li className="li">
+                <Link className="a" to={"/signup"}>
+                  Signup
+                </Link>
+              </li>
+              <li className="li">
+                <Link className="a" to={"/product-list"}>
+                  Product List
+                </Link>
+              </li>
+            </Col>
+            <Col>
+              <p className="a">Connect with us at social media </p>
+              <li className="li">
+                <a className="a" href="https://www.facebook.com/">
+                  <i className="fab fa-facebook-square left" />
+                  Facebook{" "}
+                </a>
+              </li>
+              <li className="li">
+                <a className="a" href="https://www.twitter.com/">
+                  <i className="fab fa-twitter-square left" />
+                  Twitter{" "}
+                </a>
+              </li>
+              <li className="li">
+                <a className="a" href="https://in.linkedin.com//">
+                  <i className="fab fa-linkedin-in left" />
+                  linkedin{" "}
+                </a>
+              </li>
+            </Col>
+
+            <Col>
+              <p className="a"> Legal</p>
+              <li className="li">
+                <Link className="a" to="terms-and-condition">
+                  Terms
+                </Link>
+              </li>
+              <li className="li">
+                <Link className="a" to="privacy">
+                  Privacy
+                </Link>
+              </li>
+            </Col>
+            <Col style={{ paddingRight: "360px" }}>
+              <p className="a">Newsletter</p>
+              <InputGroup className="mb-3">
+                <InputGroupAddon addonType="prepend">
+                  <InputGroupText>
+                    <i className="fa fa-envelope" />
+                  </InputGroupText>
+                </InputGroupAddon>
+                <Input
+                  type="email"
+                  name="email"
+                  placeholder="email"
+                  autoComplete="username"
+                  onChange={this.props.onInputChange}
+                />
+              </InputGroup>
+              <Button type="submit" color="success">
+                {" "}
+                Send{" "}
+              </Button>
+            </Col>
+          </Row>
+          &nbsp; &nbsp;
+          <p className="copyright">
+            &copy; {new Date().getFullYear()} Copyright
+          </p>
+        </CardFooter>
       </>
     );
   }

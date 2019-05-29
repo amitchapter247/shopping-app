@@ -8,13 +8,10 @@ import {
   NavbarBrand,
   NavbarToggler,
   Nav,
-  NavItem,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Input,
-  FormGroup
 } from "reactstrap";
 
 class Header extends Component {
@@ -35,16 +32,15 @@ class Header extends Component {
     return (
       <Card className="head">
         {" "}
-        <CardHeader >
-          <Navbar light expand="md" link to="/" >
-          <NavbarBrand href="/">Shopping Centre</NavbarBrand> <NavbarToggler onClick={this.toggle} />
-            <FormGroup row className={"search"}>
-              <Input type="search" name="search" placeholder="Search" row />
-            </FormGroup>
+        <CardHeader>
+          <Navbar light expand="md" link to="/">
+          <div className="a">
+            <NavbarBrand href="/" className="a">Shopping Centre</NavbarBrand></div>{" "}
+            <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
                 <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret>
+                  <DropdownToggle nav caret className="a">
                     Category
                   </DropdownToggle>
                   <DropdownMenu right>
@@ -56,18 +52,13 @@ class Header extends Component {
                 </UncontrolledDropdown>
               </Nav>
               &nbsp; &nbsp;
-              <NavLink link to="login">
-                Login{" "}
-              </NavLink>
+              <NavLink to={"login"} className="a">Login </NavLink>
               &nbsp; &nbsp;
-              <NavLink link to="signup">
-                {" "}
-                Signup
-              </NavLink>
+              <NavLink to="signup" className="a"> Signup</NavLink>
             </Collapse>
           </Navbar>
         </CardHeader>
-       </Card>
+      </Card>
     );
   }
 }
