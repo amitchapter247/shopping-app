@@ -6,11 +6,16 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.18",
     "@fortawesome/free-solid-svg-icons": "^5.8.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
+    "@material-ui/core": "^4.0.0",
+    "@trendmicro/react-sidenav": "^0.4.5",
     "axios": "^0.18.0",
     "i": "^0.3.6",
     "js-object-validation": "^1.0.16",
+    "mdbreact": "^4.14.0",
     "npm": "^6.9.0",
     "react": "^16.8.6",
+    "react-bootstrap": "^1.0.0-beta.8",
+    "react-bootstrap-sidebar": "^0.0.1",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
@@ -40,5 +45,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.8.2"
   }
 }

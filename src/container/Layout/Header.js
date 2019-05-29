@@ -1,27 +1,29 @@
-import axios from "axios";
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import {
-  Card,
+ 
+  Button,
   CardHeader,
-  CardBody,
   Collapse,
   Navbar,
   NavbarBrand,
   NavbarToggler,
   Nav,
   UncontrolledDropdown,
+  Input, FormGroup
 } from "reactstrap";
-import Footer from "../../container/Layout/Footer";
-class Home extends Component {
+import axios from "axios";
+import { withRouter } from "react-router-dom";
+class Header extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.state = {
+      isOpen: false,
       category: "",
       option: [],
       categoryValue: [],
-      isOpen: false,
+     name:"",
     };
   }
   toggle() {
@@ -29,56 +31,68 @@ class Home extends Component {
       isOpen: !this.state.isOpen,
     });
   }
-
   componentDidMount = async () => {
-    axios.get("http://192.168.2.107:8080/getCategory").then(res => {
+    axios.get("http://192.168.2.118:8080/getCategory").then(res => {
       const result = res.data;
       const option = [];
       if (result.result1 && result.result1.length) {
       }
       this.setState({
         option,
-        categoryValue: result.result1,
+        categoryValue: result.result1
       });
     });
-  };
+  }
   render() {
-  
     return (
-      <div>
-        <CardHeader>
-          <Navbar light expand="md">
-            Shopping App
-            <NavbarBrand link to="/" className="navbar-text" >
-              Home
-            </NavbarBrand>
+                    <>
+          
+        <CardHeader  className="navbar navbar-expand-md navbar-light"  > 
+          <Navbar light expand="md"  >
+            Shopping App 
+            <NavbarBrand >
+              <NavLink link to="" className="navbar-text"  > HOME</NavLink>
+              </NavbarBrand> 
             <NavbarToggler onClick={this.toggle} />
+            <FormGroup onClick={this.props.onSubmit}>
+            <div className="row">
+                  <div className="col"> 
+                   <Input type="search" name="name" value={this.props.name} onChange={this.props.onChange} placeholder="Search" row />
+                  </div>
+               <div className="col">
+                  <Button color="primary" row>
+                   Search
+                  </Button>
+                  &nbsp; &nbsp;
+                  <Button color="primary" row onClick={this.props.onClick}>
+                    Reset
+                  </Button>&nbsp;
+                 </div>
+               </div>
+            </FormGroup>
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
-                <UncontrolledDropdown nav inNavbar>
+                <UncontrolledDropdown nav inNavbar >
                   {/* <FormControl
                     as="select"
                     name="category"
                     value={this.props.name}
-                    onClick={this.props.onSubmit }
-                    onClick={<Link to="product-list" ></Link>}
+                    onClick={this.props.onSubmit}
                     onChange={this.props.onChange}
-                   
                   >
                     <option value="">Select Category</option>
                     {categoryValue && categoryValue.length ? (
                       categoryValue.map(category => {
                         return (
-                          <option value={category._id} >
+                          <option value={category._id}>
                             {category.category}
-                           
                           </option>
                         );
                       })
                     ) : null}
                     )
                     </FormControl> */}
-                  {/* name="category"
+                        {/* name="category"
                         value={this.state.category}
                         onChange={this.onChangeCategory}>
                   <DropdownToggle nav caret>
@@ -103,35 +117,16 @@ class Home extends Component {
                   {/* </DropdownMenu>  */}
                 </UncontrolledDropdown>
               </Nav>
-              &nbsp;&nbsp;
-              <NavLink link to="product-list" className="navbar-text" >
-                Products{" "}
-              </NavLink>
-              &nbsp;&nbsp;
-              <NavLink link to="login" className="navbar-text" >
-                Login{" "}
-              </NavLink>
-              &nbsp;&nbsp;
-              <NavLink link to="signup" className="navbar-text" >
-                {" "}
-                Signup
-              </NavLink>
+            &nbsp;&nbsp; &nbsp;&nbsp;
+                <NavLink link to="login" className="navbar-text" >Login </NavLink>
+              &nbsp;&nbsp; &nbsp;&nbsp;
+                <NavLink link to="signup" className="navbar-text"> Signup</NavLink>
             </Collapse>
           </Navbar>
         </CardHeader>
-        {this.props.children}
-        <div className="row">
-          <div className="col-md-9">
-            <Card>
-              <CardBody>
-                <h1>HELLLO HOME</h1>
-              </CardBody>
-            </Card>
-          </div>
-        </div>
-        <Footer />
-      </div>
-    );
+         
+</>
+    )
   }
 }
-export default Home;
+export default  withRouter(Header);

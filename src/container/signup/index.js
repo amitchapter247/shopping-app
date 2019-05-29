@@ -4,7 +4,7 @@ import Validator, { ValidationTypes } from "js-object-validation";
 import { toast } from 'react-toastify';
 import "./index.css";
 import SignupComponent from "../../components/signup";
-const BASE_URL = "http://192.168.2.112:8080/";
+const BASE_URL = "http://192.168.2.118:8080/";
 
 class Signup extends Component {
   constructor(props) {
@@ -115,7 +115,7 @@ class Signup extends Component {
           body.append(i, element)
         }
       }
-     const result1= await axios.post('http://192.168.2.112:8080/addUser', body);
+     const result1= await axios.post('http://192.168.2.118:8080/addUser', body);
      if(result1){
       this.setState({ name: "", email: "", password: "", cpassword: "", mobile_no: "",gender: "", file: "", isLoading: false });
      toast.success("Successfully signup")

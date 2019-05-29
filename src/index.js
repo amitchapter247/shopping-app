@@ -8,10 +8,12 @@ import "react-toastify/dist/ReactToastify.css";
 // import "~slick-carousel/slick/slick-theme.css";
 import { ToastContainer } from "react-toastify";
 import * as serviceWorker from "./serviceWorker";
-//import { library } from '@fortawesome/fontawesome-svg-core'
-//import { faStroopwafel } from '@fortawesome/free-solid-svg-icons'
-//library.add(faStroopwafel)
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faStroopwafel } from '@fortawesome/free-solid-svg-icons'
 
+import '@trendmicro/react-sidenav/dist/react-sidenav.css';
+
+library.add(faStroopwafel);
 ReactDOM.render(
   <>
     {" "}

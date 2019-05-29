@@ -18,12 +18,11 @@ import {
 class SignupComponent extends Component {
   constructor(props) {
     super(props);
-    this.State = {
-    };
+    this.State = {};
   }
 
   render() {
-    const { isLoading } = this.props;
+    const { isLoading, errors } = this.props;
     const {
       name: nameError,
       email: emailError,
@@ -32,7 +31,7 @@ class SignupComponent extends Component {
       mobile_no: mobile_noError,
       gender: genderError,
       file: fileError,
-    } = this.props.errors;
+    } = errors;
 
     return (
       <div>

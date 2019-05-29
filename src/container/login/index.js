@@ -4,7 +4,6 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
 import LoginComponent from "../../components/login";
-
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -21,10 +20,8 @@ class Login extends Component {
       this.props.history.push("/profile");
     }
   };
-
   onLogin = async e => {
     e.preventDefault();
-    console.log("login button pressed");
     this.setState({
       isLoading: true,
       errors: {},
@@ -59,12 +56,8 @@ class Login extends Component {
         });
         return;
       }
-
-      const response = await Axios.post("http://192.168.2.112:8080/login", obj);
-
-      console.log(response);
+      const response = await Axios.post("http://192.168.2.118:8080/login", obj);
       localStorage.setItem("token", response.data.token);
-      console.log(this.props);
       toast.success("Login Succesfully");
       localStorage.setItem("Cid", response.data.result._id);
       this.props.history.push("/profile");
@@ -78,7 +71,6 @@ class Login extends Component {
       );
     }
   };
-
   onInputChange = e => {
     const { target } = e;
     const { value, name } = target;
@@ -104,5 +96,4 @@ class Login extends Component {
     );
   }
 }
-
 export default withRouter(Login);

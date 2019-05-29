@@ -13,15 +13,15 @@ class MultipleItems extends Component {
     };
   }
   componentDidMount = async () => {
-    // const data= {name , price, thumbnail};
-   const response=  await Axios.get('http://192.168.2.112:8080/getItem/:id')
-    const result = response.data.result;
-    this.setState({ product: result });
-    console.log(result);
-    if (!result) {
-      console.log("error");
-    }
-  };
+  //   // const data= {name , price, thumbnail};
+  //  const response=  await Axios.get('http://192.168.2.112:8080/getItem/:id')
+  //   const result = response.data.result;
+  //   this.setState({ product: result });
+  //   console.log(result);
+  //   if (!result) {
+  //     console.log("error");
+  //   }
+  // };
 
   // autoLogin = () => {
   //   const token = localStorage.getItem("token");

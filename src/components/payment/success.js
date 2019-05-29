@@ -1,0 +1,46 @@
+import {
+  MDBCard,
+  MDBCardImage,
+  MDBCardBody,
+  MDBCardTitle,
+  MDBCardText,
+
+} from "mdbreact";
+import React, { Component } from "react";
+import { Image, Container }  from "react-bootstrap";
+import BASE_URL from "../../BASE_URL ";
+import { withRouter, Link } from "react-router-dom";
+class SuccessComponent extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+   return (
+<>
+       <div className="success_Container">
+       <Container className="trans_Container">
+     <MDBCard  >
+        <MDBCardBody cascade className="text-center">
+          <MDBCardTitle>
+            <strong>
+               <h1 className="far fa-check-circle fa-10x amber-text pr-3" aria-hidden="true"/>
+              <h1  className="transaction" >Thank You!For Purchase</h1>
+              <h2>Transaction Successfull.. </h2>
+             </strong>
+          </MDBCardTitle>
+          <MDBCardText>
+            <span className="float-center font-weight-bold">
+              <strong className="trans_id"> Your Transaction Id :- {}</strong>
+            </span>
+          </MDBCardText>
+              <Link to="/product-list">
+           <button type="button" class="btn btn-info btn-rounded btn-lg" >Continue Shopping<i class="fas fa-heart ml-2" aria-hidden="true"></i></button>
+             </Link>
+        </MDBCardBody>
+      </MDBCard>
+       </Container>
+       </div>
+     </>
+     )  }
+}
+export default SuccessComponent;

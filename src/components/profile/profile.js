@@ -1,5 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+
+import { NavLink } from "react-router-dom";
+
+import { withRouter } from "react-router-dom";
 import {
   Button,
   Card,
@@ -8,35 +11,67 @@ import {
   Col,
   Container,
   Form,
-  Input,
   InputGroup,
   InputGroupAddon,
   InputGroupText,
   Row,
+  CardHeader,
+  Collapse,
+  Navbar,
+  NavbarBrand,
+  NavbarToggler,
+  Nav,
+  UncontrolledDropdown,
+  Input,
 } from "reactstrap";
-import { withRouter } from "react-router-dom";
-const BASE_URL = "http://192.168.2.112:8080/";
-
+import Footer from "../../container/Layout/Footer";
 
 class ProfileComponent extends Component {
   constructor(props) {
     super(props);
-    this.State = {
+    this.toggle = this.toggle.bind(this);
+
+    this.state = {
+      isOpen: false,
     };
   }
-
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen,
+    });
+  }
   render() {
     const { isLoading } = this.props;
     const {
       name: nameError,
       email: emailError,
       mobile_no: mobile_noError,
-      gender: genderError,
-
     } = this.props.errors;
-
     return (
       <div>
+        <CardHeader>
+          <Navbar light expand="md">
+            Shopping App
+            <NavbarBrand link to="/">
+              Home
+            </NavbarBrand>
+            <NavbarToggler onClick={this.toggle} />
+            <Collapse isOpen={this.state.isOpen} navbar>
+              <Nav className="ml-auto" navbar>
+                <UncontrolledDropdown nav inNavbar />
+              </Nav>
+              &nbsp;&nbsp;
+              <NavLink link to="product-list" className="navbar-text">
+                Products{" "}
+              </NavLink>
+              &nbsp;&nbsp;
+              <NavLink link to="logout" className="navbar-text">
+                {" "}
+                Logout
+              </NavLink>
+            </Collapse>
+          </Navbar>
+        </CardHeader>
         <div className="app flex-row align-items-center">
           <Container className="container">
             <Row className="justify-content-center">
@@ -44,14 +79,25 @@ class ProfileComponent extends Component {
                 <Card className="mx-4" style={{ marginTop: "50px" }}>
                   <CardBody className="p-4">
                     <Form onSubmit={this.props.onSubmit} noValidate>
-                      <h1>Profile</h1>
-
-                      <p className="text-muted"></p>
-
+                      <h1 align="center">Profile</h1>
+                      <InputGroup align="center">
+                        <div className="imgPreview">
+                          {this.props.$imagePreview}
+                        </div>
+                      </InputGroup>
+                      <InputGroup className="mb-3">
+                        <Label for="file"> Upload your picture </Label>
+                        <Input
+                          type="file"
+                          autoComplete="file"
+                          value={this.file}
+                          onChange={this.props.onChangefile}
+                        />
+                      </InputGroup>
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            <i className="fa fa-key left" />
+                            <i className="fa fa-user left" />
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
@@ -66,7 +112,6 @@ class ProfileComponent extends Component {
                           <p style={{ color: "red" }}>{nameError}</p>
                         ) : null}
                       </InputGroup>
-
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>@</InputGroupText>
@@ -83,9 +128,6 @@ class ProfileComponent extends Component {
                           <p style={{ color: "red" }}>{emailError}</p>
                         ) : null}
                       </InputGroup>
-
-                     
-
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
@@ -104,7 +146,6 @@ class ProfileComponent extends Component {
                           <p style={{ color: "red" }}>{mobile_noError}</p>
                         ) : null}
                       </InputGroup>
-
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
@@ -113,37 +154,26 @@ class ProfileComponent extends Component {
                         </InputGroupAddon>
                         <Label for="gender" />
                         <Input
-                        readOnly
                           type="text"
                           name="gender"
-                          
                           value={this.props.gender}
                           onChange={this.props.onInputChange}
-                        >
-                          
-                        </Input>
-                        {/* {genderError ? (
-                          <p style={{ color: "red" }}>{genderError}</p>
-                        ) : null} */}
-                      </InputGroup>
-
-                      <InputGroup className="mb-3">
-                        <Label for="file"> Upload your picture </Label>
-                        <Input
-                          type="file"
-                          autoComplete="file"
-                          // value={this.props.file}
-                          onChange={this.props.onfileChange}
                         />
-                        {/* {fileError ? (
-                          <p style={{ color: "red" }}>{fileError}</p>
-                        ) : null} */}
                       </InputGroup>
-
-                
-
                       <Button color="success" block>
-                        {isLoading ? "please wait.." : "Create Account"}
+                        {isLoading ? "please wait.." : "Update Profile"}
+                      </Button>
+                      <br />
+                      <Button
+                        // variant="info"
+                        block
+                        color="primary"
+                        align="center" // className="flex-center"
+                        onClick={() => {
+                          this.props.history.goBack();
+                        }}
+                      >
+                        Back
                       </Button>
                     </Form>
                   </CardBody>
@@ -152,6 +182,7 @@ class ProfileComponent extends Component {
             </Row>
           </Container>
         </div>
+        <Footer />
       </div>
     );
   }

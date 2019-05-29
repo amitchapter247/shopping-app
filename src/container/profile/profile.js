@@ -1,12 +1,10 @@
-import React, { Component } from "react";
 import axios from "axios";
 import Validator, { ValidationTypes } from "js-object-validation";
-import { toast  } from "react-toastify";
+import React, { Component } from "react";
+import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-
+import BASE_URL from "../../BASE_URL ";
 import ProfileComponent from "../../components/profile/profile";
-const BASE_URL = "http://192.168.2.112:8080/";
-
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -20,11 +18,9 @@ class Profile extends Component {
       imageUpdated: false,
       imagePreviewUrl: "",
       isLoading: false,
-    Cid: localStorage.getItem("Cid") 
-
+      Cid: localStorage.getItem("Cid"),
     };
   }
-
   notify = () =>
     (this.toastId = toast("Profile Update Successfully", {
       autoClose: 2000,
@@ -40,27 +36,23 @@ class Profile extends Component {
       const { Cid } = this.state;
       const obj = { Cid };
       const response = await axios.post(
-        "http://192.168.2.112:8080/profile",
+        "http://192.168.2.118:8080/profile",
         obj,
         {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log(response);
-
-
       this.setState({
         name: response.data.result.name,
         email: response.data.result.email,
         mobile_no: response.data.result.mobile_no,
         gender: response.data.result.gender,
-        file: response.data.result.file
+        file: response.data.result.file,
       });
     } catch (error) {
       console.log(error);
     }
   };
-
   onSubmit = async e => {
     e.preventDefault();
     this.setState({
@@ -68,21 +60,28 @@ class Profile extends Component {
       errors: {},
     });
     try {
-      const { name, email, mobile_no, gender, file,Cid, imageUpdated } = this.state;
+      const {
+        name,
+        email,
+        mobile_no,
+        gender,
+        file,
+        Cid,
+        imageUpdated,
+      } = this.state;
       const obj = {
         name,
         email,
         gender,
         mobile_no,
       };
-
       const validations = {
         name: {
           [ValidationTypes.REQUIRED]: true,
         },
-      email: {
-        [ValidationTypes.REQUIRED]: true,
-        [ValidationTypes.EMAIL]: true
+        email: {
+          [ValidationTypes.REQUIRED]: true,
+          [ValidationTypes.EMAIL]: true,
         },
         gender: {
           [ValidationTypes.REQUIRED]: true,
@@ -91,7 +90,7 @@ class Profile extends Component {
           [ValidationTypes.REQUIRED]: true,
           [ValidationTypes.NUMERIC]: true,
           [ValidationTypes.MINLENGTH]: 7,
-          [ValidationTypes.MAXLENGTH]: 14
+          [ValidationTypes.MAXLENGTH]: 14,
         },
       };
       const messages = {
@@ -109,8 +108,6 @@ class Profile extends Component {
         },
       };
       const { isValid, errors } = Validator(obj, validations, messages);
-      console.log(errors);
-      console.log(isValid);
       if (!isValid) {
         this.setState({
           errors,
@@ -125,7 +122,7 @@ class Profile extends Component {
         gender,
         file,
         Cid,
-        imageUpdated
+        imageUpdated,
       };
       const body = new FormData();
       for (const i in data) {
@@ -135,28 +132,24 @@ class Profile extends Component {
         }
       }
       const token = localStorage.getItem("token");
-
-
-      const result = await axios.put(
-        "http://192.168.2.112:8080/editProfile",
-
+      const result = await axios.post(
+        "http://192.168.2.118:8080/profileUpdate",
         body,
         {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       Swal.fire({
         type: "success",
         title: "Success",
-        text: "Changes save!"
-      })
-    }catch (error) {
-        console.log(error);
-      }
-    };
-
+        text: "Changes save!",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   onInputChange = e => {
-    console.log('wdfsewgdfhb')
+    console.log("wdfsewgdfhb");
     const { target } = e;
     const { value, name } = target;
     this.setState({
@@ -166,7 +159,6 @@ class Profile extends Component {
         [name]: null,
       },
     });
-
   };
   onChangefile = e => {
     let reader = new FileReader();
@@ -184,43 +176,43 @@ class Profile extends Component {
     reader.readAsDataURL(file);
   };
   render() {
-    const { name, email, gender, mobile_no,  isLoading, imagePreviewUrl
-     } = this.state;
-
+    const { name, email, gender, mobile_no, isLoading } = this.state;
+    let { imagePreviewUrl, file } = this.state;
     let $imagePreview = (
       <img
-        src={BASE_URL + this.state.file}
+        height="50%"
+        width="50%"
+        src={BASE_URL + file}
+        className="img-fluid rounded-circle hoverable"
         alt="No Image Selected"
-        width="140px"
-        height="140px"
       />
     );
     if (imagePreviewUrl) {
       $imagePreview = (
         <img
           src={imagePreviewUrl}
+          height="50%"
+          width="50%"
+          className="img-fluid rounded-circle hoverable"
           alt="No Image Selected"
-          width="140px"
-          height="140px"
         />
       );
     }
     return (
-      <ProfileComponent  
+      <ProfileComponent
         imagePreviewUrl={this.state.imagePreviewUrl}
         notify={this.notify}
-      errors={this.state.errors} 
+        errors={this.state.errors}
         name={name}
         file={this.state.file}
         email={email}
         gender={gender}
-        mobile_no={mobile_no} 
+        mobile_no={mobile_no}
         isLoading={isLoading}
         onChangefile={this.onChangefile}
         onInputChange={this.onInputChange}
-      
-        onSubmit={this.onSubmit} 
-        
+        $imagePreview={$imagePreview}
+        onSubmit={this.onSubmit}
       />
     );
   }
