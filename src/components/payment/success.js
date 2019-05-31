@@ -7,8 +7,8 @@ import {
 
 } from "mdbreact";
 import React, { Component } from "react";
-import { Image, Container }  from "react-bootstrap";
-import BASE_URL from "../../BASE_URL ";
+import {  Container }  from "react-bootstrap";
+
 import { withRouter, Link } from "react-router-dom";
 class SuccessComponent extends Component {
   constructor(props) {

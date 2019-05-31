@@ -6,14 +6,14 @@ class Logout extends Component {
     const token = localStorage.getItem("token");
     if (!token) {
       this.props.history.push("login");
-      toast("Log Out Succesfully");
+      toast.isActive("Log Out Succesfully");
     }
   };
 
   render() {
     return (
       <div>
-        toast("Log Out Succesfully");
+        toast.isActive("Log Out Succesfully");
         <Link to={"/"} onClick={localStorage.clear()}>
           LOG OUT
 

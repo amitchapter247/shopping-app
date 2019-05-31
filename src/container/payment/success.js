@@ -10,7 +10,7 @@ class Success extends Component {
     };
   }
   notify = () =>
-    (this.toastId = toast("Profile Update Successfully", {
+    (this.toastId = toast.isActive("Profile Update Successfully", {
       autoClose: 2000,
       closeButton: false, // Remove the closeButton
     }));
@@ -39,7 +39,7 @@ class Success extends Component {
   };
 
   render() {
-    const { name, email, gender, mobile_no, isLoading } = this.state;
+    const { name, } = this.state;
     return <SuccessComponent notify={this.notify} name={name} />;
   }
 }

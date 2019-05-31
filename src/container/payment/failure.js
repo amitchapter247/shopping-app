@@ -41,7 +41,7 @@ class Failure extends Component {
   };
 
   render() {
-    const { name, email, gender, mobile_no, isLoading } = this.state;
+    const { name} = this.state;
     return <FailureComponent notify={this.notify} name={name} />;
   }
 }

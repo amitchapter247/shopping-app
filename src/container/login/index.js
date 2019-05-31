@@ -58,7 +58,7 @@ class Login extends Component {
       }
       const response = await Axios.post("http://192.168.2.118:8080/login", obj);
       localStorage.setItem("token", response.data.token);
-      toast.success("Login Succesfully");
+      toast.success.isActive("Login Succesfully");
       localStorage.setItem("Cid", response.data.result._id);
       this.props.history.push("/profile");
     } catch (error) {

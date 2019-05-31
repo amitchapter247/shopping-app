@@ -7,6 +7,7 @@ import {
   MDBBtn,
  
 } from "mdbreact";
+import { Link } from "react-router-dom";
 import React, { Component } from "react";
 // import Sidebar from "../.../container/Layout/Sidebar"
 import BASE_URL from "../../BASE_URL ";
@@ -19,7 +20,7 @@ class ProductComponent extends Component {
     return (
       // <MDBCol lg="3" md="6" className="mb-lg-0 mb-4">
       <MDBCard  >
-          <a href="product-details">
+           <Link to={"product-details/" + obj._id}>
           <MDBCardImage class="card-img-top"    
             cascade
             src={BASE_URL + obj.thumbnail}
@@ -28,31 +29,33 @@ class ProductComponent extends Component {
             overlay="white-slight"
             max height="304.234"
             max width="304.219"
-           
+            data-toggle="tooltip"
+                      data-placement="top"
+                      title="view details"
           />
-          </a>
+      </Link>
           <MDBCardBody cascade className="text-center">
             <MDBCardTitle>
-              <strong>
-                <a href="login" className="c">{obj.name}</a>
+              <strong className="product-name">
+                  <Link to={"product-details/" + obj._id} className="product-name">{obj.name}</Link>
               </strong>
             </MDBCardTitle>
             <MDBCardText>
-              <span className="float-center font-weight-bold">
+              <span className="product-price">
                 <strong>${obj.price}</strong>
               </span>
               <MDBBtn>
-                <span class="float-right font-weight-bold">
-                  <a
-                    href="product-details"
-                    class="active"
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Add to cart"
-                    size="large"
-                  >
-                    <i class="fas fa-shopping-cart black-text ml-3" />
-                  </a>
+                <span >
+                  
+                   <Link
+                      to={"product-details/" + obj._id}
+                      // className="product-cart"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Add to cart"
+                    >
+                      <i className="fas fa-shopping-cart" />
+                    </Link>
                 </span>
               </MDBBtn>
             </MDBCardText>

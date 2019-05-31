@@ -73,7 +73,7 @@ class ProfileComponent extends Component {
           </Navbar>
         </CardHeader>
         <div className="app flex-row align-items-center">
-          <Container className="container">
+          <Container className="profile-container">
             <Row className="justify-content-center">
               <Col md="9" lg="7" xl="6">
                 <Card className="mx-4" style={{ marginTop: "50px" }}>

@@ -69,7 +69,7 @@ class ForgotPassword extends Component {
       );
       console.log(response);
       if (response) {
-        toast.info("link has been sent on your email");
+        toast.info.isActive("link has been sent on your email");
         this.setState({ email: "", isLoading: false });
 
         this.props.history.push("/login");
@@ -82,7 +82,7 @@ class ForgotPassword extends Component {
         title: "Oops...",
         text: "Something went wrong!"
       });
-      toast.error(
+      toast.error.isActive(
         `${(error.response &&
           error.response.data &&
           error.response.data.message) ||

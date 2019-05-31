@@ -18,7 +18,7 @@ class ProductList extends Component {
       sort: "",
       currentPage: 1,
       totalPageRec: 0,
-      pageLimit: "3",
+      pageLimit: "6",
       skip: 0
     };
   }
@@ -166,7 +166,7 @@ class ProductList extends Component {
               />
             </div>
             <div className="col-md-11">
-            <Container>
+            <div className="product-container">
                             <ul className="product-list">
                 {product && product.length
                   ? product.map(product => {
@@ -178,7 +178,7 @@ class ProductList extends Component {
                     })
                   : null}
               </ul>
-                            </Container>
+                            </div>
               <span>
 
               {this.getPaginator()}

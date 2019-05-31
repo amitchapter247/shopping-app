@@ -22,7 +22,7 @@ class Profile extends Component {
     };
   }
   notify = () =>
-    (this.toastId = toast("Profile Update Successfully", {
+    (this.toastId = toast.isActive("Profile Update Successfully", {
       autoClose: 2000,
       closeButton: false, // Remove the closeButton
     }));

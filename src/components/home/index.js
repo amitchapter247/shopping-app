@@ -11,41 +11,53 @@ import {
   NavbarToggler,
   Nav,
   UncontrolledDropdown,
-} from "reactstrap";
+ CardFooter, } from "reactstrap";
+import CardContainer from "../../container/home/card";
 import Footer from "../../container/Layout/Footer";
+import Slider from "react-slick";
+
+import CardComponent from "../../components/home/card";
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      category: "",
-      option: [],
-      categoryValue: [],
-      isOpen: false,
+
+     this.state = {
+      product: [],
+      products: [],
+      data: []
     };
   }
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen,
-    });
-  }
+    // this.toggle = this.toggle.bind(this);
+  //   this.state = {
+  //     category: "",
+  //     option: [],
+  //     categoryValue: [],
+  //     isOpen: false,
+  //   };
+  // }
+  // toggle() {
+  //   this.setState({
+  //     isOpen: !this.state.isOpen,
+  //   });
+  // }
 
-  componentDidMount = async () => {
-    axios.get("http://192.168.2.107:8080/getCategory").then(res => {
-      const result = res.data;
-      const option = [];
-      if (result.result1 && result.result1.length) {
-      }
-      this.setState({
-        option,
-        categoryValue: result.result1,
-      });
-    });
-  };
+  // componentDidMount = async () => {
+  //   axios.get("http://192.168.2.107:8080/getCategory").then(res => {
+  //     const result = res.data;
+  //     const option = [];
+  //     if (result.result1 && result.result1.length) {
+  //     }
+  //     this.setState({
+  //       option,
+  //       categoryValue: result.result1,
+  //     });
+  //   });
+  // };
   render() {
   
     return (
-      <div>
+
+      <Card className={"card-home"}>
         <CardHeader>
           <Navbar light expand="md">
             Shopping App
@@ -119,18 +131,14 @@ class Home extends Component {
             </Collapse>
           </Navbar>
         </CardHeader>
-        {this.props.children}
-        <div className="row">
-          <div className="col-md-9">
-            <Card>
-              <CardBody>
-                <h1>HELLLO HOME</h1>
-              </CardBody>
-            </Card>
-          </div>
-        </div>
-        <Footer />
-      </div>
+       
+        <CardBody>
+          <CardComponent/>
+        </CardBody>
+        <CardFooter>
+          <Footer/>
+        </CardFooter>
+      </Card>
     );
   }
 }

@@ -3,37 +3,37 @@ import axios from "axios";
 import { Table, Button } from "reactstrap";
 import OrderComponent from "../../components/payment/orderhistory";
 
+
 import { Link } from "react-router-dom";
 import { MDBBtn, MDBIcon } from "mdbreact";
 import { toast } from "react-toastify";
 class OrderList extends Component {
   constructor(props) {
     super(props);
-    this.state = { product: [], Cid: localStorage.getItem("Cid") };
+    this.state = { product: [],  category: [], Cid: localStorage.getItem("Cid") };
   }
   componentDidMount = async () => {
+    const {product} = this.state;
     const token = localStorage.getItem("token");
-    if (!token) {
-      this.props.history.push("/login");
+    if(!token){
+      this.props.history.push("/login")
     }
-    this.getData();
+    const { Cid } = this.state;
+    const data = { Cid };
+    const res = await axios.post("http://192.168.2.118:8080/orderhistory" , data);
+    console.log("amit",res);
+    // const result = res.data.result1;
+   
+         
+    this.setState({ product: res.data.result1});
+    // console.log("adadaabdvbsudgh" , result);
+   
+    if (!product) {
+      console.log("error");
+    }
   };
-  // getData = async () => {
-  //   const { Cid } = this.state;
-  //   const data = { Cid };
-  //   const res = await axios.post("http://192.168.2.243:8080/showorder", data);
-  //   console.log(res.data.result);
-  //   console.log("result");
-  //   const result = res.data.result;
-  //   this.setState({ product: result });
-  //   console.log(result);
-  //   if (!result) {
-  //     console.log("error");
-  //   }
-  // };
-
   render() {
-    const { product } = this.state;
+    const { product , category } = this.state;
     return (
       <>
         {product.length ? (
@@ -46,24 +46,40 @@ class OrderList extends Component {
                   <th align="center">S.No.</th>
                   <th>Product Image</th>
                   <th align="center">Product Title</th>
-                  <th>Transaction Id</th>
                   <th>Product Price</th>
-                  <th>Status</th>
+                  <th>Quantity</th>
+                  <th>Invoice</th>
+                  <th>Transaction Id</th>
+                  {/* <th>Status</th> */}
                   {/* <th colSpan="2">Action</th> */}
                 </tr>
               </thead>
               <tbody>
+              <div>
                 {product && product.length
                   ? product.map(product => {
                       return (
                         <OrderComponent
                           obj={product}
                           key={product._id}
-                          onDelete={this.onDelete}
                         />
                       );
                     })
                   : null}
+</div>
+{/* <div>
+                    {category && category.length
+                  ? category.map(category => {
+                      return (
+                        <OrderComponent
+                          object={category}
+                          key={category._id}
+                     
+                        />
+                      );
+                    })
+                  : null}
+     </div> */}
               </tbody>
             </Table>
           </>
@@ -79,10 +95,11 @@ class OrderList extends Component {
                 <tr>
                   <th>S.No.</th>
                   <th>Product Image</th>
-                  <th>Product Title</th>
-                  <th>Transaction Id</th>
+                  <th align="center">Product Title</th>
                   <th>Product Price</th>
-                  <th>Status</th>
+                  <th>Quantity</th>
+                  <th>Invoice</th>
+                  <th>Transaction Id</th>
                   {/* <th colSpan="2">Action</th> */}
                 </tr>
               </thead>

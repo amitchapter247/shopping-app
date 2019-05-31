@@ -129,7 +129,7 @@ class ResetPassword extends Component {
         text: "Something went wrong!"
         // footer: '<a href>Why do I have this issue?</a>'
       });
-      toast.error(
+      toast.error.isActive(
         `${(error.response &&
           error.response.data &&
           error.response.data.message) ||

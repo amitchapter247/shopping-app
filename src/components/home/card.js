@@ -1,49 +1,45 @@
 import React, { Component } from "react";
-import Slider from "react-slick";
+import { Link } from "react-router-dom";
+import CardContainer from "../../container/home/card";
+import { NavLink } from "react-router-dom";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  Collapse,
+  Navbar,
+  NavbarBrand,
+  NavbarToggler,
+  Nav,
+  UncontrolledDropdown,
+ CardFooter, } from "reactstrap";
 
-class MultipleComponent extends Component {
+import Footer from "../../container/Layout/Footer";
+import Slider from "react-slick";
+const BASE_URL = "http://192.168.2.118:8080/";
+export default class CardComponent extends Component {
   render() {
-    const settings = {
-      dots: true,
-      infinite: false,
-      speed: 300,
-      slidesToShow: 3,
-      slidesToScroll: 3,
-    };
     return (
-      <div>
-        <h2> Multiple items </h2>
-        <Slider {...settings}>
-          <div>
-            <h3>1</h3>
+      <>
+        <div className={"animate"}>
+          <div className="container ">
+            <div>
+              <Link to={"product-list"}>
+                <img
+                  src={BASE_URL + this.props.obj.thumbnail}
+                  alt={"No img"}
+                  className="ig"
+                />
+              </Link>
+              <h5 className="textcenter">{this.props.obj.name}</h5>
+              <h5 className="textcenter">  <b> $ </b> {this.props.obj.price
+                        ? this.props.obj.price.toFixed(2)
+                        : 0.0}</h5>
+            </div>
           </div>
-          <div>
-            <h3>2</h3>
-          </div>
-          <div>
-            <h3>3</h3>
-          </div>
-          <div>
-            <h3>4</h3>
-          </div>
-          <div>
-            <h3>5</h3>
-          </div>
-          <div>
-            <h3>6</h3>
-          </div>
-          <div>
-            <h3>7</h3>
-          </div>
-          <div>
-            <h3>8</h3>
-          </div>
-          <div>
-            <h3>9</h3>
-          </div>
-        </Slider>
-      </div>
+        </div>
+         
+      </>
     );
   }
 }
-export default MultipleComponent;
