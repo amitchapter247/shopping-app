@@ -15,7 +15,8 @@ class ForgotPassword extends Component {
       messageFromServer: "",
       showNullError: false,
       isLoading: false,
-      errors: {}
+      errors: {},
+      toastId: null
     };
   }
   // componentDidMount() {
@@ -50,8 +51,8 @@ class ForgotPassword extends Component {
       };
       const messages = {
         email: {
-          [ValidationTypes.REQUIRED]: "Please enter email.",
-          [ValidationTypes.EMAIL]: "Please enter valid email."
+          [ValidationTypes.REQUIRED]: "Please enter email address.",
+          [ValidationTypes.EMAIL]: "Please enter valid email address."
         }
       };
       const { isValid, errors } = Validator(obj, validations, messages);
@@ -69,25 +70,29 @@ class ForgotPassword extends Component {
       );
       console.log(response);
       if (response) {
-        toast.info.isActive("link has been sent on your email");
-        this.setState({ email: "", isLoading: false });
+        if (!toast.isActive(this.toastId)) {
+          this.toastId = toast.info("link has been sent on your email");
+        this.setState({ email: "", isLoading: false });}
 
         this.props.history.push("/login");
       }
     } catch (error) {
       console.log(error.response.data);
       this.setState({ isLoading: false });
-      Swal.fire({
-        type: "error",
-        title: "Oops...",
-        text: "Something went wrong!"
-      });
-      toast.error.isActive(
+      // Swal.fire({
+      //   type: "error",
+      //   title: "Oops...",
+      //   text: "Something went wrong!"
+      // });
+      if (!toast.isActive(this.toastId)) {
+        this.toastId = toast.error(
         `${(error.response &&
           error.response.data &&
           error.response.data.message) ||
           "Unknown error"}`
+        
       );
+        }
     }
   };
 

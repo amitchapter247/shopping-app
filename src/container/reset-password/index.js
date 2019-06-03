@@ -16,7 +16,8 @@ class ResetPassword extends Component {
       updated: false,
       isLoading: true,
       error: false,
-      errors: {}
+      errors: {},
+      toastId: null
     };
   }
 
@@ -69,8 +70,8 @@ class ResetPassword extends Component {
       };
       const messages = {
         email: {
-          [ValidationTypes.REQUIRED]: "Please enter email.",
-          [ValidationTypes.EMAIL]: "Please enter valid email."
+          [ValidationTypes.REQUIRED]: "Please enter email address",
+          [ValidationTypes.EMAIL]: "Please enter valid email address."
         },
         password: {
           [ValidationTypes.REQUIRED]: "Please enter password.",
@@ -111,8 +112,8 @@ class ResetPassword extends Component {
           position: "center",
           type: "success",
           title: "Your Password Reset Successfully",
-          showConfirmButton: false,
-          timer: 1500
+          showConfirmButton: true,
+          timer: 1800
         });
         this.props.history.push("/login");
         console.log(result.data);
@@ -123,18 +124,16 @@ class ResetPassword extends Component {
     } catch (error) {
       console.log(error.response.data);
       this.setState({ isLoading: false });
-      Swal.fire({
-        type: "error",
-        title: "Oops...",
-        text: "Something went wrong!"
-        // footer: '<a href>Why do I have this issue?</a>'
-      });
-      toast.error.isActive(
+     
+
+      if (!toast.isActive(this.toastId)) {
+        this.toastId =  toast.error(
         `${(error.response &&
           error.response.data &&
           error.response.data.message) ||
           "Unknown error"}`
       );
+        }
       console.log(error.response.data.message);
     }
   };

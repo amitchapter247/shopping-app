@@ -3,24 +3,18 @@ import axios from "axios";
 import ProductdetailsComponent from "../../components/productdetails";
 import {
   CardHeader,
-  CardFooter,
-  Row,
-  Col,
   Collapse,
   Navbar,
   Nav,
   NavbarBrand,
-  NavbarToggler,
-  Button,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText
+  NavbarToggler
 } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import SimilarSlider from "../../container/productdetails/similarproductsslider";
+import Footer from "../Layout/Footer";
+import { Button } from "react-bootstrap";
 
 class Productdetails extends Component {
   constructor(props) {
@@ -30,12 +24,19 @@ class Productdetails extends Component {
       product: {},
       data: "",
       quantity: 1,
-      cId: localStorage.getItem("cId")
+      toastId: null,
+      Cid: localStorage.getItem("Cid")
     };
   }
 
   componentDidMount = async () => {
     await this.fetchProduct();
+  };
+
+  componentDidUpdate = async prevProps => {
+    if (prevProps.match.params.id !== this.props.match.params.id) {
+      await this.fetchProduct();
+    }
   };
 
   fetchProduct = async () => {
@@ -57,7 +58,9 @@ class Productdetails extends Component {
         quantity: this.state.quantity + 1
       });
     } else {
-      toast.isActive("Stock limit reach");
+      if (!toast.isActive(this.toastId)) {
+        this.toastId = toast.info("Stock limit reach");
+      }
     }
     console.log("Stock limit reach");
   };
@@ -76,11 +79,13 @@ class Productdetails extends Component {
       this.props.history.push("/login");
     }
   };
-
+  back = e => {
+    this.props.history.goBack();
+  }
   handleToken = async (token, amount, productid, quantity) => {
     console.log(token);
-    const { cId } = this.state;
-    const data = { cId };
+    const { Cid } = this.state;
+    const data = { Cid };
     const resp = await axios.post("http://192.168.2.118:8080/payment", {
       data,
       token,
@@ -92,10 +97,14 @@ class Productdetails extends Component {
     const { success } = resp.data;
     console.log("Response:", resp.data);
     if (success) {
-      toast.success.isActive("Payment has been successfully done! ");
+      if (!toast.isActive(this.toastId)) {
+        this.toastId = toast.success("Payment has been successfully done! ");
+      }
       this.props.history.push("/success");
     } else {
-      toast.danger.isActive("Something went wrong");
+      if (!toast.isActive(this.toastId)) {
+        this.toastId = toast.danger("Something went wrong");
+      }
       this.props.history.push("/failure");
     }
   };
@@ -107,30 +116,52 @@ class Productdetails extends Component {
       <>
         <CardHeader className="head">
           {" "}
-          <div className="navbar">
+          <div className="details-navbar">
             <Navbar light expand="md" link to="/">
-              <NavLink to={"/product-list"} className="a">
+              <Button onClick={this.back} >
                 {" "}
-                <i className=" fa fa-arrow-circle-left" /> Back
-              </NavLink>
-              &nbsp; &nbsp;
-              <div className="a">
+                <i className=" fa fa-arrow-circle-left" > Back </i>
+              </Button>
                 <NavbarBrand link to="/">
-                  Fashion Junction
                 </NavbarBrand>{" "}
-              </div>{" "}
+                <NavLink link to="" className="navbar-text">
+                  {" "}
+                  Fashion Junction
+              </NavLink>
               <NavbarToggler onClick={this.toggle} />
-              <Nav className="ml-auto" navbar>
+              <Nav className="ml-auto details-navbar" navbar>
                 <Collapse isOpen={this.state.isOpen} navbar>
-                  <Link to={"/login"} className="a">
-                    {" "}
-                    <b>Login </b>{" "}
-                  </Link>
-                  &nbsp; &nbsp;
-                  <NavLink to={"/signup"} className="a">
-                    {" "}
-                    <b> Signup</b>{" "}
+                   {localStorage.getItem("token") ? (
+                <>
+                      <NavLink link to="/profile" className="product-header">
+                       &nbsp;&nbsp; &nbsp;&nbsp;
+                       profile
                   </NavLink>
+                      <NavLink link to="/order-history" className="product-header">
+                       &nbsp;&nbsp; &nbsp;&nbsp;
+                    Order-History
+                  </NavLink>
+                      <NavLink link to="/logout" className="product-header">
+                       &nbsp;&nbsp; &nbsp;&nbsp;
+                       Logout
+                  </NavLink>
+                    </>
+                  ) : (
+                      <>
+                        {" "}
+                        <NavLink link to="/login" className="navbar-text">
+                       &nbsp;&nbsp; &nbsp;&nbsp;
+                          Login{" "}
+                        </NavLink>
+                       
+                  <NavLink link to="/signup" className="navbar-text">
+                          {" "}
+
+                           &nbsp;&nbsp; &nbsp;&nbsp;
+                         Signup
+                  </NavLink>{" "}
+                      </>
+                    )}
                 </Collapse>
               </Nav>
             </Navbar>
@@ -149,100 +180,9 @@ class Productdetails extends Component {
 
         <SimilarSlider />
 
-        <CardFooter
-          body
-          inverse
-          style={{ backgroundColor: "#333", borderColor: "#333" }}
-        >
-          <Row>
-            <Col>
-              <p className="a">Static page</p>
-              <li className="li">
-                <Link className="a" to={"/"}>
-                  Home
-                </Link>
-              </li>
-              <li className="li">
-                <Link className="a" to={"/login"}>
-                  Login
-                </Link>
-              </li>
-              <li className="li">
-                <Link className="a" to={"/signup"}>
-                  Signup
-                </Link>
-              </li>
-              <li className="li">
-                <Link className="a" to={"/product-list"}>
-                  Product List
-                </Link>
-              </li>
-            </Col>
-            <Col>
-              <p className="a">Connect with us at social media </p>
-              <li className="li">
-                <a className="a" href="https://www.facebook.com/">
-                  <i className="fab fa-facebook-square left" />
-                  Facebook{" "}
-                </a>
-              </li>
-              <li className="li">
-                <a className="a" href="https://www.twitter.com/">
-                  <i className="fab fa-twitter-square left" />
-                  Twitter{" "}
-                </a>
-              </li>
-              <li className="li">
-                <a className="a" href="https://in.linkedin.com//">
-                  <i className="fab fa-linkedin-in left" />
-                  linkedin{" "}
-                </a>
-              </li>
-            </Col>
-
-            <Col>
-              <p className="a"> Legal</p>
-              <li className="li">
-                <Link className="a" to="terms-and-condition">
-                  Terms
-                </Link>
-              </li>
-              <li className="li">
-                <Link className="a" to="privacy">
-                  Privacy
-                </Link>
-              </li>
-            </Col>
-            <Col style={{ paddingRight: "360px" }}>
-              <p className="a">Newsletter</p>
-              <InputGroup className="mb-3">
-                <InputGroupAddon addonType="prepend">
-                  <InputGroupText>
-                    <i className="fa fa-envelope" />
-                  </InputGroupText>
-                </InputGroupAddon>
-                <Input
-                  type="email"
-                  name="email"
-                  placeholder="email"
-                  autoComplete="username"
-                  onChange={this.props.onInputChange}
-                />
-              </InputGroup>
-              <Button type="submit" color="success">
-                {" "}
-                Send{" "}
-              </Button>
-            </Col>
-          </Row>
-          &nbsp; &nbsp;
-          <p className="copyright">
-            &copy; {new Date().getFullYear()} Copyright
-          </p>
-        </CardFooter>
+        <Footer />
       </>
     );
   }
 }
 export default Productdetails;
-

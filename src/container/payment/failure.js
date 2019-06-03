@@ -9,6 +9,7 @@ class Failure extends Component {
     this.state = {
       name: "",
       Cid: localStorage.getItem("Cid"),
+      toastId: null,
     };
   }
   notify = () =>

@@ -3,7 +3,7 @@ import Validator, { ValidationTypes } from "js-object-validation";
 import React, { Component } from "react";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import BASE_URL from "../../BASE_URL ";
+import { BASE_URL }  from "../../BASE_URL ";
 import ProfileComponent from "../../components/profile/profile";
 class Profile extends Component {
   constructor(props) {
@@ -19,10 +19,11 @@ class Profile extends Component {
       imagePreviewUrl: "",
       isLoading: false,
       Cid: localStorage.getItem("Cid"),
+      toastId: null,
     };
   }
   notify = () =>
-    (this.toastId = toast.isActive("Profile Update Successfully", {
+    (this.toastId = toast("Profile Update Successfully", {
       autoClose: 2000,
       closeButton: false, // Remove the closeButton
     }));
@@ -78,6 +79,7 @@ class Profile extends Component {
       const validations = {
         name: {
           [ValidationTypes.REQUIRED]: true,
+          [ValidationTypes.MAXLENGTH]: 20,
         },
         email: {
           [ValidationTypes.REQUIRED]: true,
@@ -98,13 +100,13 @@ class Profile extends Component {
           [ValidationTypes.REQUIRED]: "Please Enter Name",
         },
         email: {
-          [ValidationTypes.REQUIRED]: "Please Enter Description ",
+          [ValidationTypes.REQUIRED]: "Please Enter Email ",
         },
         mobile_no: {
-          [ValidationTypes.REQUIRED]: "Please Enter Price",
+          [ValidationTypes.REQUIRED]: "Please Enter Mobile NO",
         },
         gender: {
-          [ValidationTypes.REQUIRED]: "Please Enter Selling Price",
+          [ValidationTypes.REQUIRED]: "Please Select Gender",
         },
       };
       const { isValid, errors } = Validator(obj, validations, messages);
@@ -139,13 +141,20 @@ class Profile extends Component {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+     
+      if (result) {
+        this.setState({
+          isLoading: false,
+        });
       Swal.fire({
         type: "success",
         title: "Success",
-        text: "Changes save!",
+        text: "Profile Updated Sucessfully",
       });
+    }
     } catch (error) {
       console.log(error);
+      this.setState({ isLoading: false });
     }
   };
   onInputChange = e => {

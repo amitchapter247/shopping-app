@@ -19,6 +19,7 @@ class Signup extends Component {
       file: "",
       imageUpdated: false,
       imagePreviewUrl: "",
+      toastId: null,
       errors: {},
       isLoading: false
     };
@@ -51,7 +52,9 @@ class Signup extends Component {
       const obj = { name, email, password, cpassword, mobile_no, gender };
       const validations = {
         name: {
-          [ValidationTypes.REQUIRED]: true
+          [ValidationTypes.REQUIRED]: true,
+          [ValidationTypes.MINLENGTH]: 2,
+          [ValidationTypes.MAXLENGTH]: 50
         },
         email: {
           [ValidationTypes.REQUIRED]: true,
@@ -76,8 +79,10 @@ class Signup extends Component {
         }
       };
       const messages = {
-        username: {
-          [ValidationTypes.REQUIRED]: "Please enter name."
+        name: {
+          [ValidationTypes.REQUIRED]: "Please enter name.",
+          [ValidationTypes.MINLENGTH]: "Please enter at least 2 characters.",
+          [ValidationTypes.MAXLENGTH]: "Please enter upto 50 characters"
         },
         email: {
           [ValidationTypes.REQUIRED]: "Please enter email.",
@@ -140,18 +145,22 @@ class Signup extends Component {
           file: "",
           isLoading: false
         });
-        toast.success.isActive("You are Successfully signup");
+        if (!toast.isActive(this.toastId)) {
+          this.toastId = toast.success("You are Successfully signup");
+        }
         this.props.history.push("/login");
       }
     } catch (error) {
       console.log(error);
       this.setState({ isLoading: false });
-      toast.error.isActive(
-        `${(error.response &&
-          error.response.data &&
-          error.response.data.message[0].msg) ||
+      if (!toast.isActive(this.toastId)) {
+        this.toastId = toast.error(
+          `${(error.response &&
+            error.response.data &&
+            error.response.data.message[0].msg) ||
           "Unknown error"}`
-      );
+        );
+      }
       this.props.history.push("/signup");
     }
   };
@@ -163,6 +172,7 @@ class Signup extends Component {
       [name]: value,
       errors: {
         ...this.state.errors,
+
         [name]: null
       }
     });

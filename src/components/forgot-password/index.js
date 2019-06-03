@@ -30,7 +30,7 @@ class ForgotComponent extends Component {
                 placeholder="Enter email"
                 value={email}
                 onChange={this.props.handleChange("email")}
-                className="a"
+             
               />
          
           </InputGroup>

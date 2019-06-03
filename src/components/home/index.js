@@ -54,7 +54,7 @@ class Home extends Component {
   //   });
   // };
   render() {
-  
+    const { categoryValue, option } = this.state;
     return (
 
       <Card className={"card-home"}>
@@ -116,9 +116,26 @@ class Home extends Component {
                 </UncontrolledDropdown>
               </Nav>
               &nbsp;&nbsp;
-              <NavLink link to="product-list" className="navbar-text" >
-                Products{" "}
-              </NavLink>
+            <FormControl
+                as="select"
+                name="category"
+                color=" #3a3838"
+                value={this.props.name}
+                onClick={this.props.onSubmit}
+                onChange={this.props.onChange}
+              >
+                <option value="">Select Category</option>
+                {categoryValue && categoryValue.length ? (
+                  categoryValue.map(category => {
+                    return (
+                      <option value={category._id}>
+                        {category.category}
+                      </option>
+                    );
+                  })
+                ) : null}
+                )
+                </FormControl>
               &nbsp;&nbsp;
               <NavLink link to="login" className="navbar-text" >
                 Login{" "}

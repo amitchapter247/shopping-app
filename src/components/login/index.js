@@ -10,7 +10,9 @@ import {
   InputGroupText,
   Row,
 } from "reactstrap";
-import Header from "../../container/Layout/Header";
+import Headers from "../../components/home/header";
+
+
 class LoginComponent extends Component {
   constructor(props) {
     super(props);
@@ -21,14 +23,14 @@ class LoginComponent extends Component {
     const { email: emailError, password: passwordError } = this.props.errors;
     return (
       <div>
-        <Header />
+        <Headers />
         <div />
         {this.props.children}
         <div className="login_Container">
           <Form onSubmit={this.props.onLogin} noValidate className="login_form">
             <h1>Login</h1>
             <p className="text-muted">Sign In to your account</p>
-            <InputGroup className="mb-3">
+            <InputGroup className="mb-2">
               <InputGroupAddon addonType="prepend">
                 <InputGroupText>
                   <i className="fa fa-envelope" />
@@ -47,7 +49,7 @@ class LoginComponent extends Component {
             </InputGroup>
               {emailError ? <p style={{ color: "red" }}>{emailError}</p> : null}
 
-            <InputGroup className="mb-4">
+            <InputGroup className="mb-2">
               <InputGroupAddon addonType="prepend">
                 <InputGroupText>
                   <i className="fa fa-key" />
@@ -81,19 +83,8 @@ class LoginComponent extends Component {
               </Col>
             </Row>
           </Form>
-          {/* <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
-                  <CardBody className="text-center">
-                    <div>
-                      <h2>Sign up</h2>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.</p>
-                      <Link to="/register">
-                        <Button color="primary" className="mt-3" active tabIndex={-1}>Register Now!</Button>
-                      </Link>
-                    </div>
-                  </CardBody>
-                </Card> */}
         </div>
+    
       </div>
     );
   }

@@ -56,7 +56,7 @@ class ResetComponent extends Component {
               <div className="login_login_header__3FYY0 ">
                 <h1 className="left">Reset Password</h1>
               </div>
-              <div className="input-group">
+              <div className="input-group"></div>
                 <FormGroup>
                   <FormControl
                     required="true"
@@ -64,14 +64,11 @@ class ResetComponent extends Component {
                     placeholder="Enter Password"
                     name="password"
                     onChange={this.props.onInputChange}
-                    className="a"
                   />
                   {passwordError ? (
                     <p className=" text-danger">{passwordError}</p>
                   ) : null}
                 </FormGroup>
-              </div>
-              <div className="input-group">
                 <FormGroup>
                   <FormControl
                     required="true"
@@ -79,24 +76,24 @@ class ResetComponent extends Component {
                     placeholder="Enter Confirm Password"
                     name="cpassword"
                     onChange={this.props.onInputChange}
-                    className="a"
                   />
                   {cpasswordError ? (
                     <p className=" text-danger">{cpasswordError}</p>
                   ) : null}
                 </FormGroup>
-              </div>
+            
               <FormGroup>
                 <Button
                   type="submit"
-                  variant="success"
-                  className="btn btn-dark btn-block "
+                 className="btn btn-success btn-block "
+                  block
+                  
                 >
                   Update Password
                 </Button>
                 &nbsp;&nbsp;
                 <Link to={"/"}>
-                  <Button variant="primary" className="btn btn-dark btn-block ">
+                  <Button color="success" block >
                     Go Home
                   </Button>
                 </Link>

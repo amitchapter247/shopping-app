@@ -25,6 +25,7 @@ import {
   Input,
 } from "reactstrap";
 import Footer from "../../container/Layout/Footer";
+import Headers from "../../components/home/header";
 
 class ProfileComponent extends Component {
   constructor(props) {
@@ -46,32 +47,11 @@ class ProfileComponent extends Component {
       name: nameError,
       email: emailError,
       mobile_no: mobile_noError,
+      gender: genderError,
     } = this.props.errors;
     return (
       <div>
-        <CardHeader>
-          <Navbar light expand="md">
-            Shopping App
-            <NavbarBrand link to="/">
-              Home
-            </NavbarBrand>
-            <NavbarToggler onClick={this.toggle} />
-            <Collapse isOpen={this.state.isOpen} navbar>
-              <Nav className="ml-auto" navbar>
-                <UncontrolledDropdown nav inNavbar />
-              </Nav>
-              &nbsp;&nbsp;
-              <NavLink link to="product-list" className="navbar-text">
-                Products{" "}
-              </NavLink>
-              &nbsp;&nbsp;
-              <NavLink link to="logout" className="navbar-text">
-                {" "}
-                Logout
-              </NavLink>
-            </Collapse>
-          </Navbar>
-        </CardHeader>
+       <Headers/>
         <div className="app flex-row align-items-center">
           <Container className="profile-container">
             <Row className="justify-content-center">
@@ -114,7 +94,9 @@ class ProfileComponent extends Component {
                       </InputGroup>
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
-                          <InputGroupText>@</InputGroupText>
+                          <InputGroupText>
+                           <i className="fa fa-envelope left" />
+                          </InputGroupText>
                         </InputGroupAddon>
                         <Input
                           type="text"
@@ -135,7 +117,7 @@ class ProfileComponent extends Component {
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
-                          type="Number"
+                          type="text"
                           name="mobile_no"
                           placeholder="Mobile no."
                           autoComplete="mobile_no"
@@ -149,16 +131,24 @@ class ProfileComponent extends Component {
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            <i className="fas fa-female" />
+                            <i className="fas fa-user" />
                           </InputGroupText>
                         </InputGroupAddon>
                         <Label for="gender" />
                         <Input
-                          type="text"
+                          type="select"
                           name="gender"
-                          value={this.props.gender}
+                          id="gender"
                           onChange={this.props.onInputChange}
-                        />
+                        >
+                          <option value={""}>{this.props.gender}</option>
+                          <option value={"male"}>Male</option>
+                          <option value={"female"}>Female</option>
+                          <option value={"other"}>Other</option>
+                        </Input>
+                      {genderError ? (
+                        <p style={{ color: "red" }}>{genderError}</p>
+                      ) : null}
                       </InputGroup>
                       <Button color="success" block>
                         {isLoading ? "please wait.." : "Update Profile"}

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, FormGroup, Container, Input } from "reactstrap";
+import { Button, FormGroup, Input } from "reactstrap";
 import StripeCheckout from "react-stripe-checkout";
 const BASE_URL = "http://192.168.2.118:8080/";
 
@@ -93,26 +93,31 @@ class ProductdetailsComponent extends Component {
                 <div className="button-wrap">
                   <div className="pay">
                     {localStorage.getItem("token") ? (
-                      <Button color="primary"  > <StripeCheckout
-                        stripeKey="pk_test_bVvaPSi39gMYihZgqd7tdFn2"
-                        label="Pay with 💳"
-                        amount={
-                          this.props.quantity * this.props.obj.price * 100
-                        }
-                        productid={this.props.obj._id}
-                        quantity={this.props.quantity}
-                        token={token =>
-                          this.props.handleToken(
-                            token,
-                            this.props.quantity * this.props.obj.price * 100,
-                            this.props.obj._id,
-                            this.props.quantity
-                          )
-                        }
-                      /> </Button>
+                      <Button color="primary" style={{ width: "5%" }}>
+                        {" "}
+                        <StripeCheckout
+                          stripeKey="pk_test_bVvaPSi39gMYihZgqd7tdFn2"
+                          label="Pay with 💳"
+                          amount={
+                            this.props.quantity * this.props.obj.price * 100
+                          }
+                          productid={this.props.obj._id}
+                          quantity={this.props.quantity}
+                          token={token =>
+                            this.props.handleToken(
+                              token,
+                              this.props.quantity * this.props.obj.price * 100,
+                              this.props.obj._id,
+                              this.props.quantity
+                            )
+                          }
+                        />{" "}
+                      </Button>
                     ) : (
-                      <Button color="primary" onClick={this.props.onClick}>Pay</Button>
-                    )}
+                        <Button color="primary" onClick={this.props.onClick}>
+                          Pay
+                      </Button>
+                      )}
                   </div>
                 </div>
               </div>

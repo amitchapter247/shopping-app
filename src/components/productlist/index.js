@@ -7,20 +7,52 @@ import {
   MDBBtn,
  
 } from "mdbreact";
+import axios from 'axios';
 import { Link } from "react-router-dom";
 import React, { Component } from "react";
 // import Sidebar from "../.../container/Layout/Sidebar"
-import BASE_URL from "../../BASE_URL ";
+import { BASE_URL }  from "../../BASE_URL ";
+
 class ProductComponent extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      value:"",
+      Cid:localStorage.getItem("Cid")
+    };
   }
+
+  Click = async e => {
+    console.log("sguyhfgcyh");
+    // e.preventDefault();
+    const { Cid } = this.state;
+
+    // const { value } = this.state;
+    const value = this.props.obj._id;
+    const data = { value, Cid };
+    if (localStorage.getItem("Cid")) {
+      const response = await axios.post(
+        "http://192.168.2.118:8080/searchid",
+        data
+      );
+      if (response) {
+        console.log(" onClick ", response);
+      }
+    }
+  };
+
+
+
+
+
+
   render() {
     const { product, obj } = this.props;
+    console.log("as",product);
     return (
       // <MDBCol lg="3" md="6" className="mb-lg-0 mb-4">
       <MDBCard  >
-           <Link to={"product-details/" + obj._id}>
+           <Link to={"/product-details/" + obj._id} onClick={this.Click}> 
           <MDBCardImage class="card-img-top"    
             cascade
             src={BASE_URL + obj.thumbnail}
@@ -37,7 +69,7 @@ class ProductComponent extends Component {
           <MDBCardBody cascade className="text-center">
             <MDBCardTitle>
               <strong className="product-name">
-                  <Link to={"product-details/" + obj._id} className="product-name">{obj.name}</Link>
+                  <Link to={"/product-details/" + obj._id} className="product-name">{obj.name}</Link>
               </strong>
             </MDBCardTitle>
             <MDBCardText>
@@ -48,7 +80,7 @@ class ProductComponent extends Component {
                 <span >
                   
                    <Link
-                      to={"product-details/" + obj._id}
+                      to={"/product-details/" + obj._id}
                       // className="product-cart"
                       data-toggle="tooltip"
                       data-placement="top"

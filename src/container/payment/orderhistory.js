@@ -3,10 +3,13 @@ import axios from "axios";
 import { Table, Button } from "reactstrap";
 import OrderComponent from "../../components/payment/orderhistory";
 
+import Headers from "../../components/home/header";
 
 import { Link } from "react-router-dom";
 import { MDBBtn, MDBIcon } from "mdbreact";
 import { toast } from "react-toastify";
+import { Container } from "react-bootstrap";
+import Footer from "../Layout/Footer";
 class OrderList extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +28,7 @@ class OrderList extends Component {
     // const result = res.data.result1;
    
          
-    this.setState({ product: res.data.result1});
+    this.setState({ product: res.data.result});
     // console.log("adadaabdvbsudgh" , result);
    
     if (!product) {
@@ -38,24 +41,27 @@ class OrderList extends Component {
       <>
         {product.length ? (
           <>
-            <h2>Order List</h2>
+          <Headers/>
+          <div className="order-history">
+                        <h2>Order History</h2>
 
-            <Table>
+            <Table striped bordered hover variant="dark" className="css-serial">
               <thead>
-                <tr class="table-active" textAlign="center">
-                  <th align="center">S.No.</th>
-                  <th>Product Image</th>
-                  <th align="center">Product Title</th>
-                  <th>Product Price</th>
-                  <th>Quantity</th>
-                  <th>Invoice</th>
+                <tr class="table-active" textAlign="center" >
+                  <th align="center" >S.No.</th>
+                  <th align="center">Product Image</th>
+                  <th align="center">Product</th>
+                  <th align="center"> Price</th>
+                  <th align="center">Quantity</th>
+                  <th align="center">Amount</th>
+                    <th>Purchase Date</th>
                   <th>Transaction Id</th>
                   {/* <th>Status</th> */}
                   {/* <th colSpan="2">Action</th> */}
                 </tr>
               </thead>
               <tbody>
-              <div>
+             
                 {product && product.length
                   ? product.map(product => {
                       return (
@@ -66,39 +72,26 @@ class OrderList extends Component {
                       );
                     })
                   : null}
-</div>
-{/* <div>
-                    {category && category.length
-                  ? category.map(category => {
-                      return (
-                        <OrderComponent
-                          object={category}
-                          key={category._id}
-                     
-                        />
-                      );
-                    })
-                  : null}
-     </div> */}
               </tbody>
             </Table>
+            </div>
+<Footer/>
           </>
         ) : (
           <>
-            <h2 style={{ marginTop: "5px", marginBottom: "5px" }}>
-              {" "}
-              Order List
-            </h2>
+          <Headers/>
+              <div className="order-history">
+                <h2>Order History</h2>
 
-            <Table>
+            <Table className="order">
               <thead>
                 <tr>
                   <th>S.No.</th>
                   <th>Product Image</th>
-                  <th align="center">Product Title</th>
+                  <th>Product Title</th>
                   <th>Product Price</th>
                   <th>Quantity</th>
-                  <th>Invoice</th>
+                  <th>Amount</th>
                   <th>Transaction Id</th>
                   {/* <th colSpan="2">Action</th> */}
                 </tr>
@@ -118,15 +111,17 @@ class OrderList extends Component {
                 Currrently No orders are available in the Order list
               </p>
               <Button
-                variant={"primary"}
+                 color={"primary"}
                 value={"Go to home"}
                 onClick={() => {
-                  this.props.history.push("product-list");
+                  this.props.history.push("/");
                 }}
               >
-                <i className="fa fa-plus left">Start Shopping </i>{" "}
+                <i className="fa fa-plus left"> Start Shopping </i>{" "}
               </Button>
             </div>
+            </div>
+            <Footer/>
           </>
         )}
       </>

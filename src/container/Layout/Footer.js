@@ -18,7 +18,8 @@ class Footer extends Component {
     super(props);
     this.state = {
       email: "",
-      intervalId: 0
+      intervalId: 0,
+      toastId: null
     };
   }
   onSubmit = async e => {
@@ -31,19 +32,26 @@ class Footer extends Component {
         data
       );
       if (result) {
-        this.setState({ email: "" });
-        toast.success.isActive(
-          "You are Successfully Registered your email for daily updates"
-        );
+        this.setState({
+          email: ""
+        });
+        if (!toast.isActive(this.toastId)) {
+          this.toastId = toast.success(
+            "You are Successfully Registered your email for daily updates"
+          );
+        }
       }
     } catch (error) {
       console.log(error);
-      toast.error.isActive(
-        `${(error.response &&
-          error.response.data &&
-          error.response.data.message[0].msg) ||
+      this.setState({ email: "" });
+      if (!toast.isActive(this.toastId)) {
+        this.toastId = toast.error(
+          `${(error.response &&
+            error.response.data &&
+            error.response.data.message[0].msg) ||
           "Unknown error"}`
-      );
+        );
+      }
     }
   };
   onInputChange = e => {
@@ -79,13 +87,14 @@ class Footer extends Component {
         style={{ backgroundColor: "#333", borderColor: "#333" }}
       >
         <button
+
           title="Back to top"
           className="scroll"
           onClick={() => {
             this.scrollToTop();
           }}
         >
-          <span className="arrow-up glyphicon glyphicon-chevron-up" />
+          <i className="fas fa-chevron-up"></i>
         </button>
         ;
         <form onSubmit={this.onSubmit} noValidate>
@@ -148,7 +157,7 @@ class Footer extends Component {
                 </Link>
               </li>
             </Col>
-            <Col style={{ paddingRight: "360px" }}>
+            <Col className="newsletter">
               <p className="a">Newsletter</p>
               <InputGroup className="mb-3">
                 <InputGroupAddon addonType="prepend">
@@ -165,13 +174,17 @@ class Footer extends Component {
               </InputGroup>
               <Button type="submit" color="success">
                 {" "}
-                Send{" "}
+                Subscribe{" "}
               </Button>
             </Col>
           </Row>
         </form>
         &nbsp; &nbsp;
-        <p className="copyright">&copy; {new Date().getFullYear()} Copyright</p>
+        <Row>
+          <p className="copyright">
+            &copy; {new Date().getFullYear()} Copyright
+          </p>
+        </Row>
       </CardFooter>
     );
   }

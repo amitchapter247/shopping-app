@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import axios from "axios";
 import Slider from "react-slick";
 import CardComponent from "../../components/home/card";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import Footer from "../Layout/Footer";
+import { FormControl } from "react-bootstrap";
+import Headers from "../../components/home/header";
 
 import {
   Card,
@@ -15,7 +17,8 @@ import {
   NavbarToggler,
   Nav,
   UncontrolledDropdown,
- CardFooter, } from "reactstrap";
+  CardFooter
+} from "reactstrap";
 
 const settings = {
   dots: true,
@@ -82,13 +85,29 @@ class CardContainer extends Component {
     this.state = {
       product: [],
       products: [],
-      data: []
+      data: [],
+      category: "",
+      option: [],
+
+      selectedCategory: "",
+      Cid: localStorage.getItem("Cid")
     };
   }
   componentDidMount = async () => {
-    const res = await axios.post("http://192.168.2.118:8080/getProduct");
+    const { Cid, product } = this.state;
+    const data = { Cid };
+    const res = await axios.post(
+      "http://192.168.2.118:8080/getproductlimit",
+      data
+    );
     const dataresult = res.data.result;
-    this.setState({ product: dataresult });
+    console.log("dadad", dataresult);
+    var n;
+    for (n = 0; n < dataresult.length; n++) {
+      // this.setState({ product: product.push(dataresult[n]) });
+      product.push(dataresult[n][0]);
+      console.log("proihdsbf",product);
+    }
     if (!dataresult) {
       console.log("error");
     }
@@ -107,54 +126,35 @@ class CardContainer extends Component {
       console.log("error");
     }
   };
+
+  onInputChange = e => {
+    const { target } = e;
+    const { value, name } = target;
+    this.setState({
+      [name]: value
+    });
+  };
   render() {
     const { product } = this.state;
     const { products } = this.state;
     const { data } = this.state;
+
     return (
       <>
-
-       
-        <CardHeader>
-          <Navbar light expand="md">
-            Shopping App
-            <NavbarBrand link to="/" className="navbar-text" >
-              Home
-            </NavbarBrand>
-            <NavbarToggler onClick={this.toggle} />
-            <Collapse isOpen={this.state.isOpen} navbar>
-              <Nav className="ml-auto" navbar>
-                <UncontrolledDropdown nav inNavbar>
-                
-                </UncontrolledDropdown>
-              </Nav>
-              &nbsp;&nbsp;
-              <NavLink link to="product-list" className="navbar-text" >
-                Products{" "}
-              </NavLink>
-              &nbsp;&nbsp;
-              <NavLink link to="login" className="navbar-text" >
-                Login{" "}
-              </NavLink>
-              &nbsp;&nbsp;
-              <NavLink link to="signup" className="navbar-text" >
-                {" "}
-                Signup
-              </NavLink>
-            </Collapse>
-          </Navbar>
-        </CardHeader>
+        <Headers />
         <div>
-
-          <h4 className={"h4"}> Recently visited products</h4>
-          <Slider {...settings}>
-            {product && product.length
-              ? product.map(product => {
-                  return <CardComponent obj={product} key={product._id} />;
-                })
-              : null}
-          </Slider>
-
+          {localStorage.getItem("Cid") ? (
+            <>
+              <h4 className={"h4"}> Recently visited products</h4>
+              <Slider {...settings}>
+                {product && product.length
+                  ? product.map(product => {
+                      return <CardComponent obj={product} key={product._id} />;
+                    })
+                  : null}
+              </Slider>{" "}
+            </>
+          ) : null}
           <div className={"multi1"}>
             <h4 className={"h4"}>Featured products</h4>
             <Slider {...settings1}>
@@ -178,10 +178,9 @@ class CardContainer extends Component {
                 : null}
             </Slider>
           </div>
-           <Footer />
+          <Footer />
         </div>
-
-       </>
+      </>
     );
   }
 }

@@ -12,11 +12,12 @@ import Layout from "./container/Layout";
 import CardContainer from "./container/home/card";
 import "./App.css";
 import Logout from "./components/logout";
-import Success from "./components/payment/success"
+import Success from "./components/payment/success";
 import Failure from "./components/payment/failure";
 import OrderList from "./container/payment/orderhistory";
 import Productdetails from "./container/productdetails";
 import Footer from "./container/Layout/Footer";
+import Sidebar from "./container/Layout/Sidebar";
 // import ProductList from "./container/product/index"
 // import SideBar from "./container/Layout";
 
@@ -39,33 +40,34 @@ class App extends Component {
       <Router>
         <>
           <Switch>
-            {localStorage.getItem("token") ? (
-              <>
-            <Route path="/profile" component={Profile} />
+          
+                <Route path="/profile" component={Profile} />
                 <Route path="/logout" component={Logout} />
-                <Route path="/product-list" component={ProductList} />
-                        <Route path="/product-details/:id" component={Productdetails} />
+                <Route path="/product-list/:id" component={ProductList} />
+                <Route path="/product-details/:id" component={Productdetails} />
                 <Route path="/success" component={Success} />
                 <Route path="/order-history" component={OrderList} />
+                <Route exact path="/" component={CardContainer} />
 
-              </>) : <>
-
-            <Route exact path="/" component={CardContainer} />
-            <Route path="/login" component={Login} />
-            {/* <Route exact path="/" component={Home} /> */}
-            <Route path="/forgot-password" component={ForgotPassword}/>
-          <Route path="/footer" component={Footer} />
-            <Route path="/reset/:token1" component={ResetPassword} />
-            <Route path="/signup" component={Register} />
-            <Route path="/card" component={Card} />
-            <Route path="/product-list" component={ProductList} />
-                        <Route path="/product-details/:id" component={Productdetails} />
-            <Route path="/card" component={CardContainer} />
+           
+                <Route exact path="/" component={CardContainer} />
+                <Route path="/login" component={Login} />
+                {/* <Route exact path="/" component={Home} /> */}
+                <Route path="/forgot-password" component={ForgotPassword} />
+                <Route path="/footer" component={Footer} />
+                <Route path="/reset/:token1" component={ResetPassword} />
+                <Route path="/signup" component={Register} />
+                <Route path="/card" component={Card} />
+                <Route path="/product-list/:id" component={ProductList} />
+                <Route path="/product-details/:id" component={Productdetails} />
+                <Route path="/card" component={CardContainer} />
                 <Route path="/failure" component={Failure} />
                 <Route path="/success" component={Success} />
-                <Route path="/order-history" component={OrderList} />
-              </>
-            }
+               
+                  <Route path="/Sidebar" component={Sidebar} />
+
+             
+          
             {/* <Route path="/sidebar" component={SideBar} /> */}
           </Switch>
         </>
@@ -73,6 +75,5 @@ class App extends Component {
     );
   }
 }
-
 
 export default App;

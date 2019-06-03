@@ -29,11 +29,11 @@ class SuccessComponent extends Component {
              </strong>
           </MDBCardTitle>
           <MDBCardText>
-            <span className="float-center font-weight-bold">
+            {/* <span className="float-center font-weight-bold">
               <strong className="trans_id"> Your Transaction Id :- {}</strong>
-            </span>
+            </span> */}
           </MDBCardText>
-              <Link to="/product-list">
+              <Link to="/">
            <button type="button" class="btn btn-info btn-rounded btn-lg" >Continue Shopping<i class="fas fa-heart ml-2" aria-hidden="true"></i></button>
              </Link>
         </MDBCardBody>

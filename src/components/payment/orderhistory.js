@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import BASE_URL from "../../BASE_URL ";
+import { BASE_URL } from "../../BASE_URL ";
+
 
 class OrderComponent extends Component {
   constructor(props) {
@@ -50,13 +51,16 @@ class OrderComponent extends Component {
           {obj.name}
           </td>
         <td className="c" align="center">  
-          {obj.price}
+          <i class="fas fa-dollar-sign"></i> {obj.price}
         </td>
         <td align="center">
-          {obj.quantity}
+         {obj.quantity}
         </td>
         <td align="center">
-           {obj.amount}
+          <i class="fas fa-rupee-sign"></i>    {obj.amount}
+        </td>
+        <td align="center">
+          {obj.createTime}
         </td>
          <td align="center">
           {obj.trans_id}

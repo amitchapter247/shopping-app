@@ -11,13 +11,14 @@ class Login extends Component {
       email: "",
       password: "",
       isLoading: false,
+      toastId: null,
       errors: {},
     };
   }
   componentDidMount = async () => {
     const token = localStorage.getItem("token");
     if (token) {
-      this.props.history.push("/profile");
+      this.props.history.push("/");
     }
   };
   onLogin = async e => {
@@ -40,8 +41,8 @@ class Login extends Component {
       };
       const messages = {
         email: {
-          [ValidationTypes.EMAIL]: "Please enter valid email",
-          [ValidationTypes.REQUIRED]: "Please Enter email",
+          [ValidationTypes.EMAIL]: "Please enter valid email address",
+          [ValidationTypes.REQUIRED]: "Please Enter email address",
         },
         password: {
           [ValidationTypes.REQUIRED]: "Please Enter password",
@@ -58,17 +59,21 @@ class Login extends Component {
       }
       const response = await Axios.post("http://192.168.2.118:8080/login", obj);
       localStorage.setItem("token", response.data.token);
-      toast.success.isActive("Login Succesfully");
+      if (!toast.isActive(this.toastId)) {
+        this.toastId =  toast.success("Login Succesfully");
+      }
       localStorage.setItem("Cid", response.data.result._id);
-      this.props.history.push("/profile");
+      this.props.history.goBack();
     } catch (error) {
       this.setState({ isLoading: false });
-      toast.error(
+      if (!toast.isActive(this.toastId)) {
+        this.toastId = toast.error(
         `${(error.response &&
           error.response.data &&
           error.response.data.message) ||
           "Unknown Error"}`
       );
+        }
     }
   };
   onInputChange = e => {

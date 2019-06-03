@@ -12,7 +12,10 @@ import {
   Row
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import Header from "../../container/Layout/Header";
+
+
+
+import Headers from "../../components/home/header";
 
 class SignupComponent extends Component {
   constructor(props) {
@@ -33,28 +36,34 @@ class SignupComponent extends Component {
 
     return (
       <div>
-         <Header />
+        <Headers />
         <div className="login_loginContainer__2JMrT">
-          {/* <div className="app flex-row align-items-center" > */}
           <Container className="container1">
-            {/* <Row className="justify-content-center">
-              <Col md="9" lg="7" xl="6">
-                <Card className="mx-4" style={{ marginTop: "50px" }}>
-                  <CardBody className="p-4" > */}
-
             <Form
               onSubmit={this.props.onRegister}
               noValidate
               className="signup"
             >
-              <h1>Register</h1>
+              <Row>
+                <Col>
+                  <h1>Register</h1>
+                </Col>
+                <Col>
+                  {" "}
+                  <div className="icon-cancel">
+                    <Link to={"/login"}>
+                      <i className="fas fa-times-circle" />{" "}
+                    </Link>
+                  </div>
+                </Col>
+              </Row>
 
               <p className="text-muted">Create your account</p>
 
-              <InputGroup className="mb-3">
+              <InputGroup className="mb-2">
                 <InputGroupAddon addonType="prepend">
                   <InputGroupText>
-                    <i className="fa fa-key left" />
+                    <i className="fa fa-user left" />
                   </InputGroupText>
                 </InputGroupAddon>
                 <Input
@@ -67,9 +76,11 @@ class SignupComponent extends Component {
               </InputGroup>
               {nameError ? <p style={{ color: "red" }}>{nameError}</p> : null}
 
-              <InputGroup className="mb-3">
+              <InputGroup className="mb-2">
                 <InputGroupAddon addonType="prepend">
-                  <InputGroupText>@</InputGroupText>
+                  <InputGroupText>
+                    <i className="fas fa-envelope" />
+                  </InputGroupText>
                 </InputGroupAddon>
                 <Input
                   type="text"
@@ -83,7 +94,7 @@ class SignupComponent extends Component {
 
               <Row>
                 <Col md="9" lg="7" xl="6">
-                  <InputGroup className="mb-3">
+                  <InputGroup className="mb-2">
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
                         <i className="fa fa-key" />
@@ -102,7 +113,7 @@ class SignupComponent extends Component {
                   ) : null}
                 </Col>
                 <Col md="9" lg="7" xl="6">
-                  <InputGroup className="mb-4">
+                  <InputGroup className="mb-2">
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
                         <i className="fas fa-lock" />
@@ -111,7 +122,7 @@ class SignupComponent extends Component {
                     <Input
                       type="password"
                       name="cpassword"
-                      placeholder="Re-type password"
+                      placeholder="Confirm password"
                       autoComplete="password"
                       onChange={this.props.onInputChange}
                     />
@@ -124,14 +135,14 @@ class SignupComponent extends Component {
 
               <Row>
                 <Col md="9" lg="7" xl="6">
-                  <InputGroup className="mb-3">
+                  <InputGroup className="mb-2">
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
                         <i className="fa fa-phone-square" />
                       </InputGroupText>
                     </InputGroupAddon>
                     <Input
-                      type="Number"
+                      type="text"
                       name="mobile_no"
                       placeholder="Mobile no."
                       autoComplete="mobile_no"
@@ -143,10 +154,10 @@ class SignupComponent extends Component {
                   ) : null}
                 </Col>
                 <Col md="9" lg="7" xl="6">
-                  <InputGroup className="mb-3">
+                  <InputGroup className="mb-2">
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
-                        <i className="fas fa-female" />
+                        <i className="fas fa-user-circle" />
                       </InputGroupText>
                     </InputGroupAddon>
                     <Label for="gender" />
@@ -167,7 +178,7 @@ class SignupComponent extends Component {
                   ) : null}
                 </Col>
               </Row>
-              <InputGroup className="mb-3">
+              <InputGroup className="mb-2">
                 <Label for="file"> Upload your picture </Label>
                 <Input
                   type="file"
@@ -188,13 +199,9 @@ class SignupComponent extends Component {
               </Link>
             </Form>
 
-            {/* </CardBody>
-
-                </Card>
-              </Col>
-            </Row> */}
           </Container>
         </div>
+       
       </div>
     );
   }
