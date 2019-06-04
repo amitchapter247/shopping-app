@@ -12,9 +12,6 @@ import {
   Row
 } from "reactstrap";
 import { Link } from "react-router-dom";
-
-
-
 import Headers from "../../components/home/header";
 
 class SignupComponent extends Component {

@@ -44,21 +44,21 @@ class OrderComponent extends Component {
                 alt="NO Image"
                 src={BASE_URL + obj.file}
                 onClick={this.handleShowDialog}
-                alt="no image"
+              
               />
         </td>
         <td className="c" align="center">  
           {obj.name}
           </td>
         <td className="c" align="center">  
-          <i class="fas fa-dollar-sign"></i> {obj.price}
+          <i class="fas fa-dollar-sign"></i> {obj.price*obj.quantity}
         </td>
         <td align="center">
          {obj.quantity}
         </td>
-        <td align="center">
+        {/* <td align="center">
           <i class="fas fa-rupee-sign"></i>    {obj.amount}
-        </td>
+        </td> */}
         <td align="center">
           {obj.createTime}
         </td>

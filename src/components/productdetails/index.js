@@ -99,10 +99,16 @@ class ProductdetailsComponent extends Component {
                           stripeKey="pk_test_bVvaPSi39gMYihZgqd7tdFn2"
                           label="Pay with 💳"
                           amount={
-                            this.props.quantity * this.props.obj.price * 100
+                           this.props.quantity * this.props.obj.price * 100
+? this.props.quantity *
+this.props.obj.price.toFixed(2) *
+100
+: 0.0
                           }
                           productid={this.props.obj._id}
                           quantity={this.props.quantity}
+                          name={this.props.obj.name}
+                          email={this.props.object.email}
                           token={token =>
                             this.props.handleToken(
                               token,

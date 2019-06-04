@@ -40,6 +40,7 @@ class Footer extends Component {
             "You are Successfully Registered your email for daily updates"
           );
         }
+       
       }
     } catch (error) {
       console.log(error);

@@ -56,7 +56,7 @@ class ProfileComponent extends Component {
           <Container className="profile-container">
             <Row className="justify-content-center">
               <Col md="9" lg="7" xl="6">
-                <Card className="mx-4" style={{ marginTop: "50px" }}>
+                <Card className="mx-4 profile-card" style={{ marginTop: "50px" }}>
                   <CardBody className="p-4">
                     <Form onSubmit={this.props.onSubmit} noValidate>
                       <h1 align="center">Profile</h1>

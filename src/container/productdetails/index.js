@@ -25,12 +25,14 @@ class Productdetails extends Component {
       data: "",
       quantity: 1,
       toastId: null,
+      products:{},
       Cid: localStorage.getItem("Cid")
     };
   }
 
   componentDidMount = async () => {
     await this.fetchProduct();
+    await this.showprofile();
   };
 
   componentDidUpdate = async prevProps => {
@@ -50,6 +52,22 @@ class Productdetails extends Component {
       console.log("product fetch err: ", error);
     }
   };
+
+
+ showprofile = async () => {
+try {
+const { Cid } = this.state;
+const data = { Cid };
+const response = await axios.post(
+"http://192.168.2.118:8080/profile",
+data
+);
+this.setState({ products: response.data.result });
+} catch (error) {
+console.log("product fetch err: ", error);
+}
+};
+
 
   add = e => {
     e.preventDefault();
@@ -110,7 +128,7 @@ class Productdetails extends Component {
   };
 
   render() {
-    const { product, quantity } = this.state;
+    const { product, quantity ,products } = this.state;
 
     return (
       <>
@@ -171,6 +189,8 @@ class Productdetails extends Component {
         <ProductdetailsComponent
           obj={product}
           key={product._id}
+          object={products}
+          key1={products._id}
           quantity={quantity}
           incQuantity={this.add}
           decQuantity={this.subtract}

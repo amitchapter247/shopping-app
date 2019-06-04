@@ -25,13 +25,12 @@ class Signup extends Component {
     };
   }
 
-  // componentDidMount = async () => {
-
-  //   const token = localStorage.getItem("token");
-  //   if (token) {
-  //     this.props.history.push("/product-list");
-  //   }
-  // }
+  componentDidMount = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      this.props.history.push("/");
+    }
+  };
 
   onRegister = async e => {
     e.preventDefault();

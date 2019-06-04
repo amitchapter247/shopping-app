@@ -53,8 +53,8 @@ class OrderList extends Component {
                   <th align="center">Product</th>
                   <th align="center"> Price</th>
                   <th align="center">Quantity</th>
-                  <th align="center">Amount</th>
-                    <th>Purchase Date</th>
+                  {/* <th align="center">Amount</th> */}
+                    <th>Date</th>
                   <th>Transaction Id</th>
                   {/* <th>Status</th> */}
                   {/* <th colSpan="2">Action</th> */}

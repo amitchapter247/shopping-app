@@ -5,14 +5,11 @@ import {
   MDBCardTitle,
   MDBCardText,
   MDBBtn,
- 
 } from "mdbreact";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import React, { Component } from "react";
-// import Sidebar from "../.../container/Layout/Sidebar"
 import { BASE_URL }  from "../../BASE_URL ";
-
 class ProductComponent extends Component {
   constructor(props) {
     super(props);

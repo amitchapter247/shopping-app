@@ -70,12 +70,11 @@ class ForgotPassword extends Component {
       );
       console.log(response);
       if (response) {
-        if (!toast.isActive(this.toastId)) {
-          this.toastId = toast.info("link has been sent on your email");
+       toast.info("link has been sent on your email");
         this.setState({ email: "", isLoading: false });}
 
         this.props.history.push("/login");
-      }
+    
     } catch (error) {
       console.log(error.response.data);
       this.setState({ isLoading: false });
