@@ -25,7 +25,7 @@ class Productdetails extends Component {
       data: "",
       quantity: 1,
       toastId: null,
-      products:{},
+      products: {},
       Cid: localStorage.getItem("Cid")
     };
   }
@@ -53,21 +53,19 @@ class Productdetails extends Component {
     }
   };
 
-
- showprofile = async () => {
-try {
-const { Cid } = this.state;
-const data = { Cid };
-const response = await axios.post(
-"http://192.168.2.118:8080/profile",
-data
-);
-this.setState({ products: response.data.result });
-} catch (error) {
-console.log("product fetch err: ", error);
-}
-};
-
+  showprofile = async () => {
+    try {
+      const { Cid } = this.state;
+      const data = { Cid };
+      const response = await axios.post(
+        "http://192.168.2.118:8080/profile",
+        data
+      );
+      this.setState({ products: response.data.result });
+    } catch (error) {
+      console.log("product fetch err: ", error);
+    }
+  };
 
   add = e => {
     e.preventDefault();
@@ -95,11 +93,12 @@ console.log("product fetch err: ", error);
     const token = localStorage.getItem("token");
     if (!token) {
       this.props.history.push("/login");
+      toast.success("You need to login to make purchase");
     }
   };
   back = e => {
     this.props.history.goBack();
-  }
+  };
   handleToken = async (token, amount, productid, quantity) => {
     console.log(token);
     const { Cid } = this.state;
@@ -128,7 +127,7 @@ console.log("product fetch err: ", error);
   };
 
   render() {
-    const { product, quantity ,products } = this.state;
+    const { product, quantity, products } = this.state;
 
     return (
       <>
@@ -136,50 +135,46 @@ console.log("product fetch err: ", error);
           {" "}
           <div className="details-navbar">
             <Navbar light expand="md" link to="/">
-              <Button onClick={this.back} >
+              <Button onClick={this.back}>
                 {" "}
-                <i className=" fa fa-arrow-circle-left" > Back </i>
+                <i className=" fa fa-arrow-circle-left"> Back </i>
               </Button>
-                <NavbarBrand link to="/">
-                </NavbarBrand>{" "}
-                <NavLink link to="" className="navbar-text">
-                  {" "}
-                  Fashion Junction
+              <NavbarBrand link to="/" />{" "}
+              <NavLink link to="" className="navbar-text">
+                {" "}
+                Fashion Junction
               </NavLink>
               <NavbarToggler onClick={this.toggle} />
               <Nav className="ml-auto details-navbar" navbar>
                 <Collapse isOpen={this.state.isOpen} navbar>
-                   {localStorage.getItem("token") ? (
-                <>
+                  {localStorage.getItem("token") ? (
+                    <>
                       <NavLink link to="/profile" className="product-header">
-                       &nbsp;&nbsp; &nbsp;&nbsp;
-                       profile
-                  </NavLink>
-                      <NavLink link to="/order-history" className="product-header">
-                       &nbsp;&nbsp; &nbsp;&nbsp;
-                    Order-History
-                  </NavLink>
+                        &nbsp;&nbsp; &nbsp;&nbsp; profile
+                      </NavLink>
+                      <NavLink
+                        link
+                        to="/order-history"
+                        className="product-header"
+                      >
+                        &nbsp;&nbsp; &nbsp;&nbsp; Order-History
+                      </NavLink>
                       <NavLink link to="/logout" className="product-header">
-                       &nbsp;&nbsp; &nbsp;&nbsp;
-                       Logout
-                  </NavLink>
+                        &nbsp;&nbsp; &nbsp;&nbsp; Logout
+                      </NavLink>
                     </>
                   ) : (
-                      <>
+                    <>
+                      {" "}
+                      <NavLink link to="/login" className="navbar-text">
+                        &nbsp;&nbsp; &nbsp;&nbsp; Login{" "}
+                      </NavLink>
+                      <NavLink link to="/signup" className="navbar-text">
                         {" "}
-                        <NavLink link to="/login" className="navbar-text">
-                       &nbsp;&nbsp; &nbsp;&nbsp;
-                          Login{" "}
-                        </NavLink>
-                       
-                  <NavLink link to="/signup" className="navbar-text">
-                          {" "}
-
-                           &nbsp;&nbsp; &nbsp;&nbsp;
-                         Signup
-                  </NavLink>{" "}
-                      </>
-                    )}
+                        &nbsp;&nbsp; &nbsp;&nbsp; Signup
+                      </NavLink>{" "}
+                    </>
+                  )}
                 </Collapse>
               </Nav>
             </Navbar>
@@ -190,7 +185,7 @@ console.log("product fetch err: ", error);
           obj={product}
           key={product._id}
           object={products}
-          key1={products._id}
+          // key1={products._id}
           quantity={quantity}
           incQuantity={this.add}
           decQuantity={this.subtract}
